@@ -21,6 +21,7 @@
 #define _SYSTEM_INITIALIZING            (u32)0x80000000   /*!< G_u32SystemFlags set when system is in initialization phase */
 /* end G_u32SystemFlags */
 
+/*#define _XTAL_FREQ 64000000
 
 
 
