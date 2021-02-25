@@ -31,9 +31,9 @@
 [v _ClockSetup ClockSetup `(v  1 e 1 0 ]
 "89
 [v _GpioSetup GpioSetup `(v  1 e 1 0 ]
-"111
+"113
 [v _SysTickSetup SysTickSetup `(v  1 e 1 0 ]
-"133
+"135
 [v _SystemSleep SystemSleep `(v  1 e 1 0 ]
 "35 C:\Users\mzaee\Documents\GitHub\2021_ENCM369\main.c
 [v _main main `(v  1 e 1 0 ]
@@ -48,8 +48,12 @@
 [v _LATA LATA `VEuc  1 e 1 @1214 ]
 "45840
 [v _TRISA TRISA `VEuc  1 e 1 @1222 ]
+"45902
+[v _TRISB TRISB `VEuc  1 e 1 @1223 ]
 "46095
 [v _PORTA PORTA `VEuc  1 e 1 @1230 ]
+"46157
+[v _PORTB PORTB `VEuc  1 e 1 @1231 ]
 "14 C:\Users\mzaee\Documents\GitHub\2021_ENCM369\main.c
 [v _G_u32SystemTime1ms G_u32SystemTime1ms `VEul  1 e 4 0 ]
 "15
@@ -66,29 +70,29 @@
 "95 C:\Users\mzaee\Documents\GitHub\2021_ENCM369\user_app.c
 [v _UserAppRun UserAppRun `(v  1 e 1 0 ]
 {
-"97
-[v UserAppRun@u32counter u32counter `ul  1 a 4 0 ]
-"112
+"98
+[v UserAppRun@u32Counter u32Counter `ul  1 s 4 u32Counter ]
+"105
 } 0
 "76
 [v _UserAppInitialize UserAppInitialize `(v  1 e 1 0 ]
 {
 "80
 } 0
-"133 C:\Users\mzaee\Documents\GitHub\2021_ENCM369\encm369_pic18.c
+"135 C:\Users\mzaee\Documents\GitHub\2021_ENCM369\encm369_pic18.c
 [v _SystemSleep SystemSleep `(v  1 e 1 0 ]
 {
-"136
+"138
 } 0
-"111
+"113
 [v _SysTickSetup SysTickSetup `(v  1 e 1 0 ]
 {
-"116
+"118
 } 0
 "89
 [v _GpioSetup GpioSetup `(v  1 e 1 0 ]
 {
-"96
+"98
 } 0
 "70
 [v _ClockSetup ClockSetup `(v  1 e 1 0 ]

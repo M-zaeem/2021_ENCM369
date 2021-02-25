@@ -36,7 +36,7 @@ Type Definitions
 #define OSC_VALUE                 (u32)64000000                              /*!< @brief Internal oscillator value */
 #define MAINCK                    OSC_VALUE/4                                /*!< @brief Main clock is base frequency / 4 */
 
-
+#define _XTAL_FREQ 16000000
 
 /***********************************************************************************************************************
 * Macros

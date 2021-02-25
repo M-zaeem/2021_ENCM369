@@ -94,22 +94,33 @@ Promises:
 */
 void UserAppRun(void)
 {
-    u32 u32counter = FCY/55;
-    LATA = LATA + 0x01;
+    static u32 u32Counter = 0x00000000;
+    static int pin_state = 0;
     
-    while(u32counter>0)
+    if(PORTBbits.RB5 ==0)
+        pin_state = 0;
+    
+    if(PORTBbits.RB5 ==1 && pin_state == 0 )
     {
-        u32counter -= 1;
-        if(LATA == 0xBF){
-            LATA = 0x80;
-            break;
-        }
+        u32Counter++; 
+        LATA += 1;
+        pin_state = 1;
     }
+    __delay_ms(10);
+    
+    if(u32Counter > 63){
+        u32Counter = 0;
+        LATA = 0x80;
+    }
+  
+    
+    
+}
     
     
 
 
-} /* end UserAppRun */
+ /* end UserAppRun */
 
 
 
