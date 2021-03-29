@@ -27288,6 +27288,7 @@ void SystemSleep(void);
 # 1 "./user_app.h" 1
 # 27 "./user_app.h"
 void UserAppInitialize(void);
+void TimeXus(u16 u16TimeXus);
 void UserAppRun(void);
 # 106 "./configuration.h" 2
 # 24 "encm369_pic18.c" 2
@@ -27304,21 +27305,19 @@ void ClockSetup(void)
 # 89 "encm369_pic18.c"
 void GpioSetup(void)
 {
-    TRISA = 0x00;
-    PORTA = 0x00;
-    ANSELA = 0x00;
     LATA = 0x80;
-
+    TRISA = 0x00;
+    ANSELA = 0x00;
 
 }
-# 112 "encm369_pic18.c"
+# 110 "encm369_pic18.c"
 void SysTickSetup(void)
 {
   G_u32SystemTime1ms = 0;
   G_u32SystemTime1s = 0;
 
 }
-# 134 "encm369_pic18.c"
+# 132 "encm369_pic18.c"
 void SystemSleep(void)
 {
 

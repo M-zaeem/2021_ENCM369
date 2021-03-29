@@ -75,9 +75,46 @@ Promises:
 */
 void UserAppInitialize(void)
 {
+   /* LED initialization */
+    LATA = 0x80;
+    
+    /* Timer0 control register initialization to turn timer on, asynchronous mode, 16 bit
+     * Fosc/4, 1:16 pre-scaler, 1:1post-scaler */
+    T0CON0 = 0x90;
+    T0CON1 = 0x54;
+    
 
 
 } /* end UserAppInitialize() */
+
+/*--------------------------------------------------------------------
+void TimeXus(INPUT_PARAMETER_)
+Sets Timer0 to count u16Microseconds_
+Requires:
+- Timer0 configured such that each timer tick is 1 microsecond
+- INPUT_PARAMETER_ is the value in microseconds to time from 1 to 65535
+Promises:
+- Pre-loads TMR0H:L to clock out desired period
+- TMR0IF cleared
+- Timer0 enabled
+*/
+void TimeXus(u16 u16TimeXus)
+{
+   /* Disable the timer during config */
+    T0CON0bits.EN = 0;
+  
+ /* Preload TMR0H and TMR0L based on u16TimeXus */
+    u16 u16temp = 65535;
+    u16temp = u16temp-u16TimeXus;
+    TMR0H = (u8) ( (u16temp>>8) & 0x00FF);
+    TMR0L = (u8) (u16temp & 0x00FF);
+    
+ /* Clear TMR0IF and enable Timer 0 */
+    PIR3bits.TMR0IF = 0;
+    T0CON0bits.EN = 1;
+    
+} /* end TimeXus () */
+
 
   
 /*!----------------------------------------------------------------------------------------------------------------------
@@ -92,23 +129,36 @@ Promises:
 - 
 
 */
-void UserAppRun(void)
+void UserAppRun(void)    
 {
-    u32 u32counter = FCY/55;
-    LATA = LATA + 0x01;
+    static u16 u16Counter = 0x0000;
     
-    while(u32counter>0)
+    /*Pattern to turn on 6 lED's one at a time */
+    u8 u8pattern [6] = {0x01, 0x02, 0x04, 0x08, 0x10, 0x20};
+    
+    /*static variable to index array*/
+    static int pattern_index = 0;  
+    
+    /*Static u8 variable to store lATA values*/
+    static u8 u8Temp = 0x00;
+    
+    
+    
+    if(u16Counter == 500)
     {
-        u32counter -= 1;
-        if(LATA == 0xBF){
-            LATA = 0x80;
-            break;
-        }
+        u16Counter = 0;
+        u8Temp = 0x80;
+        u8Temp |= u8pattern[pattern_index];
+        LATA = u8Temp;
+        
+        pattern_index++;
     }
     
-    
-
-
+    if(pattern_index == 6)
+        pattern_index = 0;
+        
+    u16Counter++;
+  
 } /* end UserAppRun */
 
 

@@ -27288,6 +27288,7 @@ void SystemSleep(void);
 # 1 "./user_app.h" 1
 # 27 "./user_app.h"
 void UserAppInitialize(void);
+void TimeXus(u16 u16TimeXus);
 void UserAppRun(void);
 # 106 "./configuration.h" 2
 # 26 "user_app.c" 2
@@ -27310,24 +27311,62 @@ extern volatile u32 G_u32SystemFlags;
 void UserAppInitialize(void)
 {
 
+    LATA = 0x80;
+
+
+
+    T0CON0 = 0x90;
+    T0CON1 = 0x54;
+
+
 
 }
-# 95 "user_app.c"
+# 101 "user_app.c"
+void TimeXus(u16 u16TimeXus)
+{
+
+    T0CON0bits.EN = 0;
+
+
+    u16 u16temp = 65535;
+    u16temp = u16temp-u16TimeXus;
+    TMR0H = (u8) ( (u16temp>>8) & 0x00FF);
+    TMR0L = (u8) (u16temp & 0x00FF);
+
+
+    PIR3bits.TMR0IF = 0;
+    T0CON0bits.EN = 1;
+
+}
+# 132 "user_app.c"
 void UserAppRun(void)
 {
-    u32 u32counter = (u32)64000000/4/55;
-    LATA = LATA + 0x01;
+    static u16 u16Counter = 0x0000;
 
-    while(u32counter>0)
+
+    u8 u8pattern [6] = {0x01, 0x02, 0x04, 0x08, 0x10, 0x20};
+
+
+    static int pattern_index = 0;
+
+
+    static u8 u8Temp = 0x00;
+
+
+
+    if(u16Counter == 500)
     {
-        u32counter -= 1;
-        if(LATA == 0xBF){
-            LATA = 0x80;
-            break;
-        }
+        u16Counter = 0;
+        u8Temp = 0x80;
+        u8Temp |= u8pattern[pattern_index];
+        LATA = u8Temp;
+
+        pattern_index++;
     }
 
+    if(pattern_index == 6)
+        pattern_index = 0;
 
-
+    u16Counter++;
 
 }

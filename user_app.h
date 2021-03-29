@@ -25,6 +25,7 @@ Function Declarations
 /*! @protectedsection */                                                                                            
 /*--------------------------------------------------------------------------------------------------------------------*/
 void UserAppInitialize(void);
+void TimeXus(u16 u16TimeXus);
 void UserAppRun(void);
 
 
