@@ -91,6 +91,9 @@ void GpioSetup(void)
     LATA = 0x80;
     TRISA = 0x00;
     ANSELA = 0x00;
+    
+     /* Configure DAC1 for Vdd and Vss references */
+    DAC1CON = 0xA0 ; /*0b1010000     */
   
 } /* end GpioSetup() */
 

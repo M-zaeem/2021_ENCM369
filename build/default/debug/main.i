@@ -27330,17 +27330,11 @@ void main(void)
 
 
 
-    UserAppRun();
 
-
-
-
-    (LATA &= 0x7F);
-    SystemSleep();
-    TimeXus(1000);
-    while(0x80 != (PIR3 & 0x80) );
-    (LATA |= 0x80);
-
+     TimeXus(1);
+     while(0x80 != (PIR3 & 0x80) );
+     DAC1DATL++;
+# 77 "main.c"
   }
 
 }

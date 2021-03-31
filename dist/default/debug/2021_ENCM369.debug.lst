@@ -1,17 +1,17 @@
 
 
 Microchip MPLAB XC8 Assembler V2.31 build 20201012212115 
-                                                                                               Mon Mar 29 11:07:49 2021
+                                                                                               Wed Mar 31 15:31:39 2021
 
 Microchip MPLAB XC8 C Compiler v2.31 (Free license) build 20201012212115 Og1 
      1                           	processor	18F27Q43
      2                           	fnconf	rparam,??,?,0
      3                           	pagewidth 120
      4                           	opt	flic
-     5                           	psect	idataCOMRAM,global,class=CODE,delta=1,noexec
+     5                           	psect	idataBANK6,global,class=CODE,delta=1,noexec
      6                           	psect	cinit,global,reloc=2,class=CODE,delta=1
      7                           	psect	bssCOMRAM,global,class=COMRAM,space=1,delta=1,lowdata,noexec
-     8                           	psect	dataCOMRAM,global,class=COMRAM,space=1,delta=1,lowdata,noexec
+     8                           	psect	dataBANK6,global,class=BANK6,space=1,delta=1,lowdata,noexec
      9                           	psect	cstackCOMRAM,global,class=COMRAM,space=1,delta=1,lowdata,noexec
     10                           	psect	text0,global,reloc=2,class=CODE,delta=1
     11                           	psect	text1,global,reloc=2,class=CODE,delta=1
@@ -19,1009 +19,1084 @@ Microchip MPLAB XC8 C Compiler v2.31 (Free license) build 20201012212115 Og1
     13                           	psect	text3,global,reloc=2,class=CODE,delta=1
     14                           	psect	text4,global,reloc=2,class=CODE,delta=1
     15                           	psect	text5,global,reloc=2,class=CODE,delta=1
-    16                           	psect	text6,global,reloc=2,class=CODE,delta=1
-    17                           	psect	text7,global,reloc=2,class=CODE,delta=1
-    18                           	psect	intsave_regs,global,class=BIGRAM,space=1,delta=1,noexec
-    19                           	psect	rparam,global,class=COMRAM,space=1,delta=1,noexec
-    20                           	psect	idloc,global,abs,ovrld,class=IDLOC,space=5,delta=1,noexec
-    21                           	psect	config,global,abs,ovrld,class=CONFIG,space=4,delta=1,noexec
-    22  0000                     
-    23                           ; Version 2.30
-    24                           ; Generated 20/08/2020 GMT
-    25                           ; 
-    26                           ; Copyright © 2020, Microchip Technology Inc. and its subsidiaries ("Microchip")
-    27                           ; All rights reserved.
-    28                           ; 
-    29                           ; This software is developed by Microchip Technology Inc. and its subsidiaries ("Microch
+    16                           	psect	intsave_regs,global,class=BIGRAM,space=1,delta=1,noexec
+    17                           	psect	rparam,global,class=COMRAM,space=1,delta=1,noexec
+    18                           	psect	idloc,global,abs,ovrld,class=IDLOC,space=5,delta=1,noexec
+    19                           	psect	config,global,abs,ovrld,class=CONFIG,space=4,delta=1,noexec
+    20  0000                     
+    21                           ; Version 2.30
+    22                           ; Generated 20/08/2020 GMT
+    23                           ; 
+    24                           ; Copyright © 2020, Microchip Technology Inc. and its subsidiaries ("Microchip")
+    25                           ; All rights reserved.
+    26                           ; 
+    27                           ; This software is developed by Microchip Technology Inc. and its subsidiaries ("Microch
       +                          ip").
-    30                           ; 
-    31                           ; Redistribution and use in source and binary forms, with or without modification, are
-    32                           ; permitted provided that the following conditions are met:
-    33                           ; 
-    34                           ;     1. Redistributions of source code must retain the above copyright notice, this lis
+    28                           ; 
+    29                           ; Redistribution and use in source and binary forms, with or without modification, are
+    30                           ; permitted provided that the following conditions are met:
+    31                           ; 
+    32                           ;     1. Redistributions of source code must retain the above copyright notice, this lis
       +                          t of
-    35                           ;        conditions and the following disclaimer.
-    36                           ; 
-    37                           ;     2. Redistributions in binary form must reproduce the above copyright notice, this 
+    33                           ;        conditions and the following disclaimer.
+    34                           ; 
+    35                           ;     2. Redistributions in binary form must reproduce the above copyright notice, this 
       +                          list
-    38                           ;        of conditions and the following disclaimer in the documentation and/or other
-    39                           ;        materials provided with the distribution. Publication is not required when
-    40                           ;        this file is used in an embedded application.
-    41                           ; 
-    42                           ;     3. Microchip's name may not be used to endorse or promote products derived from th
+    36                           ;        of conditions and the following disclaimer in the documentation and/or other
+    37                           ;        materials provided with the distribution. Publication is not required when
+    38                           ;        this file is used in an embedded application.
+    39                           ; 
+    40                           ;     3. Microchip's name may not be used to endorse or promote products derived from th
       +                          is
-    43                           ;        software without specific prior written permission.
-    44                           ; 
-    45                           ; THIS SOFTWARE IS PROVIDED BY MICROCHIP "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
-    46                           ; INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS F
+    41                           ;        software without specific prior written permission.
+    42                           ; 
+    43                           ; THIS SOFTWARE IS PROVIDED BY MICROCHIP "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+    44                           ; INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS F
       +                          OR
-    47                           ; PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL MICROCHIP BE LIABLE FOR ANY DIRECT, INDIREC
+    45                           ; PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL MICROCHIP BE LIABLE FOR ANY DIRECT, INDIREC
       +                          T,
-    48                           ; INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING BUT NOT LIMITED TO
-    49                           ; PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA OR PROFITS; OR BUSINESS
-    50                           ; INTERRUPTION) HOWSOEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, ST
+    46                           ; INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING BUT NOT LIMITED TO
+    47                           ; PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA OR PROFITS; OR BUSINESS
+    48                           ; INTERRUPTION) HOWSOEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, ST
       +                          RICT
-    51                           ; LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE U
+    49                           ; LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE U
       +                          SE OF
-    52                           ; THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-    53                           ; 
+    50                           ; THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+    51                           ; 
+    52                           ; 
+    53                           ; Code-generator required, PIC18F27Q43 Definitions
     54                           ; 
-    55                           ; Code-generator required, PIC18F27Q43 Definitions
-    56                           ; 
-    57                           ; SFR Addresses
-    58  0000                     
-    59                           	psect	idataCOMRAM
-    60  01FEAE                     __pidataCOMRAM:
-    61                           	callstack 0
-    62                           
-    63                           ;initializer for UserAppRun@F15926
-    64  01FEAE  01                 	db	1
-    65  01FEAF  02                 	db	2
-    66  01FEB0  04                 	db	4
-    67  01FEB1  08                 	db	8
-    68  01FEB2  10                 	db	16
-    69  01FEB3  20                 	db	32
-    70  0000                     _TMR0L	set	792
-    71  0000                     _TMR0H	set	793
-    72  0000                     _T0CON0bits	set	794
-    73  0000                     _T0CON1	set	795
-    74  0000                     _T0CON0	set	794
-    75  0000                     _ANSELA	set	1024
-    76  0000                     _PIR3bits	set	1201
-    77  0000                     _PIR3	set	1201
-    78  0000                     _TRISA	set	1222
-    79  0000                     _LATA	set	1214
-    80                           
-    81                           ; #config settings
-    82                           
-    83                           	psect	cinit
-    84  01FF1A                     __pcinit:
-    85                           	callstack 0
-    86  01FF1A                     start_initialization:
-    87                           	callstack 0
-    88  01FF1A                     __initialization:
-    89                           	callstack 0
-    90                           
-    91                           ; Initialize objects allocated to COMRAM (6 bytes)
-    92                           ; load TBLPTR registers with __pidataCOMRAM
-    93  01FF1A  0EAE               	movlw	low __pidataCOMRAM
-    94  01FF1C  6EF6               	movwf	tblptrl,c
-    95  01FF1E  0EFE               	movlw	high __pidataCOMRAM
-    96  01FF20  6EF7               	movwf	tblptrh,c
-    97  01FF22  0E01               	movlw	low (__pidataCOMRAM shr (0+16))
-    98  01FF24  6EF8               	movwf	tblptru,c
-    99  01FF26  EE01  F113         	lfsr	0,__pdataCOMRAM
-   100  01FF2A  EE10 F006          	lfsr	1,6
-   101  01FF2E                     copy_data0:
-   102  01FF2E  0009               	tblrd		*+
-   103  01FF30  C4F5 F4EE          	movff	tablat,postinc0
-   104  01FF34  50E5               	movf	postdec1,w,c
-   105  01FF36  50E1               	movf	fsr1l,w,c
-   106  01FF38  E1FA               	bnz	copy_data0
-   107                           
-   108                           ; Clear objects allocated to COMRAM (18 bytes)
-   109  01FF3A  EE01  F101         	lfsr	0,__pbssCOMRAM
-   110  01FF3E  0E12               	movlw	18
-   111  01FF40                     clear_0:
-   112  01FF40  6AEE               	clrf	postinc0,c
-   113  01FF42  06E8               	decf	wreg,f,c
-   114  01FF44  E1FD               	bnz	clear_0
-   115  01FF46                     end_of_initialization:
-   116                           	callstack 0
-   117  01FF46                     __end_of__initialization:
-   118                           	callstack 0
-   119  01FF46  0100               	movlb	0
-   120  01FF48  EFA6  F0FF         	goto	_main	;jump to C main() function
-   121                           
-   122                           	psect	bssCOMRAM
-   123  000501                     __pbssCOMRAM:
-   124                           	callstack 0
-   125  000501                     _G_u32SystemFlags:
-   126                           	callstack 0
-   127  000501                     	ds	4
-   128  000505                     _G_u32SystemTime1s:
-   129                           	callstack 0
-   130  000505                     	ds	4
-   131  000509                     _G_u32SystemTime1ms:
-   132                           	callstack 0
-   133  000509                     	ds	4
-   134  00050D                     UserAppRun@pattern_index:
-   135                           	callstack 0
-   136  00050D                     	ds	2
-   137  00050F                     UserAppRun@u16Counter:
-   138                           	callstack 0
-   139  00050F                     	ds	2
-   140  000511                     UserAppRun@u8Temp:
-   141                           	callstack 0
-   142  000511                     	ds	1
-   143  000512                     _G_u8UserAppFlags:
-   144                           	callstack 0
-   145  000512                     	ds	1
-   146                           
-   147                           	psect	dataCOMRAM
-   148  000513                     __pdataCOMRAM:
-   149                           	callstack 0
-   150  000513                     UserAppRun@F15926:
-   151                           	callstack 0
-   152  000513                     	ds	6
-   153                           
-   154                           	psect	cstackCOMRAM
-   155  000519                     __pcstackCOMRAM:
-   156                           	callstack 0
-   157  000519                     TimeXus@u16TimeXus:
-   158                           	callstack 0
-   159  000519                     UserAppRun@u8pattern:
-   160                           	callstack 0
-   161                           
-   162                           ; 6 bytes @ 0x0
-   163  000519                     	ds	2
-   164  00051B                     TimeXus@u16temp:
-   165                           	callstack 0
-   166                           
-   167                           ; 2 bytes @ 0x2
-   168  00051B                     	ds	4
-   169  00051F                     
-   170                           ; 1 bytes @ 0x6
-   171 ;;
-   172 ;;Main: autosize = 0, tempsize = 0, incstack = 0, save=0
-   173 ;;
-   174 ;; *************** function _main *****************
-   175 ;; Defined at:
-   176 ;;		line 35 in file "main.c"
-   177 ;; Parameters:    Size  Location     Type
-   178 ;;		None
-   179 ;; Auto vars:     Size  Location     Type
-   180 ;;		None
-   181 ;; Return value:  Size  Location     Type
-   182 ;;                  1    wreg      void 
-   183 ;; Registers used:
-   184 ;;		wreg, fsr1l, fsr1h, fsr2l, fsr2h, status,2, status,0, cstack
-   185 ;; Tracked objects:
-   186 ;;		On entry : 0/0
-   187 ;;		On exit  : 0/0
-   188 ;;		Unchanged: 0/0
-   189 ;; Data sizes:     COMRAM   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12  BANK13  BANK14  BANK15  BANK1
-      +6  BANK17  BANK18  BANK19  BANK20  BANK21  BANK22  BANK23  BANK24  BANK25  BANK26  BANK27  BANK28  BANK29  BANK30  BANK3
-      +1  BANK32  BANK33  BANK34  BANK35  BANK36  BANK37
-   190 ;;      Params:         0       0       0       0       0       0       0       0       0       0       0       0       
-      +0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       
-      +0       0       0       0       0       0       0
-   191 ;;      Locals:         0       0       0       0       0       0       0       0       0       0       0       0       
-      +0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       
-      +0       0       0       0       0       0       0
-   192 ;;      Temps:          0       0       0       0       0       0       0       0       0       0       0       0       
-      +0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       
-      +0       0       0       0       0       0       0
-   193 ;;      Totals:         0       0       0       0       0       0       0       0       0       0       0       0       
-      +0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       
-      +0       0       0       0       0       0       0
-   194 ;;Total ram usage:        0 bytes
-   195 ;; Hardware stack levels required when called:    1
-   196 ;; This function calls:
-   197 ;;		_ClockSetup
-   198 ;;		_GpioSetup
-   199 ;;		_SysTickSetup
-   200 ;;		_SystemSleep
-   201 ;;		_TimeXus
-   202 ;;		_UserAppInitialize
-   203 ;;		_UserAppRun
-   204 ;; This function is called by:
-   205 ;;		Startup code after reset
-   206 ;; This function uses a non-reentrant model
-   207 ;;
-   208                           
-   209                           	psect	text0
-   210  01FF4C                     __ptext0:
-   211                           	callstack 0
-   212  01FF4C                     _main:
-   213                           	callstack 127
-   214  01FF4C                     
-   215                           ;main.c: 37:   G_u32SystemFlags |= (u32)0x80000000;
-   216  01FF4C  8E04               	bsf	(_G_u32SystemFlags+3)^(0+1280),7,c	;volatile
-   217  01FF4E                     
-   218                           ;main.c: 40:   ClockSetup();
-   219  01FF4E  EC55  F0FF         	call	_ClockSetup	;wreg free
-   220  01FF52                     
-   221                           ;main.c: 41:   SysTickSetup();
-   222  01FF52  EC6A  F0FF         	call	_SysTickSetup	;wreg free
-   223  01FF56                     
-   224                           ;main.c: 42:   GpioSetup();
-   225  01FF56  EC5A  F0FF         	call	_GpioSetup	;wreg free
-   226  01FF5A                     
-   227                           ;main.c: 47:   UserAppInitialize();
-   228  01FF5A  EC62  F0FF         	call	_UserAppInitialize	;wreg free
-   229  01FF5E                     l848:
-   230                           
-   231                           ;main.c: 53:   {;main.c: 57:     UserAppRun();
-   232  01FF5E  ECC6  F0FF         	call	_UserAppRun	;wreg free
-   233  01FF62                     
-   234                           ;main.c: 62:     (LATA &= 0x7F);
-   235  01FF62  9EBE               	bcf	190,7,c	;volatile
-   236  01FF64                     
-   237                           ;main.c: 63:     SystemSleep();
-   238  01FF64  EC56  F0FF         	call	_SystemSleep	;wreg free
-   239  01FF68                     
-   240                           ;main.c: 64:     TimeXus(1000);
-   241  01FF68  0E03               	movlw	3
-   242  01FF6A  6E1A               	movwf	(TimeXus@u16TimeXus+1)^(0+1280),c
-   243  01FF6C  0EE8               	movlw	232
-   244  01FF6E  6E19               	movwf	TimeXus@u16TimeXus^(0+1280),c
-   245  01FF70  EC7B  F0FF         	call	_TimeXus	;wreg free
-   246  01FF74                     l52:
-   247  01FF74  AEB1               	btfss	177,7,c	;volatile
-   248  01FF76  EFBF  F0FF         	goto	u51
-   249  01FF7A  EFC1  F0FF         	goto	u50
-   250  01FF7E                     u51:
-   251  01FF7E  EFBA  F0FF         	goto	l52
-   252  01FF82                     u50:
-   253  01FF82                     
-   254                           ;main.c: 66:     (LATA |= 0x80);
-   255  01FF82  8EBE               	bsf	190,7,c	;volatile
-   256  01FF84  EFAF  F0FF         	goto	l848
-   257  01FF88  EFFE  F0FF         	goto	start
-   258  01FF8C                     __end_of_main:
-   259                           	callstack 0
-   260                           
-   261 ;; *************** function _UserAppRun *****************
-   262 ;; Defined at:
-   263 ;;		line 132 in file "user_app.c"
-   264 ;; Parameters:    Size  Location     Type
-   265 ;;		None
-   266 ;; Auto vars:     Size  Location     Type
-   267 ;;  u8pattern       6    0[COMRAM] unsigned char [6]
-   268 ;; Return value:  Size  Location     Type
-   269 ;;                  1    wreg      void 
-   270 ;; Registers used:
-   271 ;;		wreg, fsr1l, fsr1h, fsr2l, fsr2h, status,2, status,0
-   272 ;; Tracked objects:
-   273 ;;		On entry : 0/0
-   274 ;;		On exit  : 0/0
-   275 ;;		Unchanged: 0/0
-   276 ;; Data sizes:     COMRAM   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12  BANK13  BANK14  BANK15  BANK1
-      +6  BANK17  BANK18  BANK19  BANK20  BANK21  BANK22  BANK23  BANK24  BANK25  BANK26  BANK27  BANK28  BANK29  BANK30  BANK3
-      +1  BANK32  BANK33  BANK34  BANK35  BANK36  BANK37
-   277 ;;      Params:         0       0       0       0       0       0       0       0       0       0       0       0       
-      +0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       
-      +0       0       0       0       0       0       0
-   278 ;;      Locals:         6       0       0       0       0       0       0       0       0       0       0       0       
-      +0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       
-      +0       0       0       0       0       0       0
-   279 ;;      Temps:          0       0       0       0       0       0       0       0       0       0       0       0       
-      +0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       
-      +0       0       0       0       0       0       0
-   280 ;;      Totals:         6       0       0       0       0       0       0       0       0       0       0       0       
-      +0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       
-      +0       0       0       0       0       0       0
-   281 ;;Total ram usage:        6 bytes
-   282 ;; Hardware stack levels used:    1
-   283 ;; This function calls:
-   284 ;;		Nothing
-   285 ;; This function is called by:
-   286 ;;		_main
-   287 ;; This function uses a non-reentrant model
-   288 ;;
-   289                           
-   290                           	psect	text1
-   291  01FF8C                     __ptext1:
-   292                           	callstack 0
-   293  01FF8C                     _UserAppRun:
-   294                           	callstack 127
-   295  01FF8C                     
-   296                           ;user_app.c: 134:     static u16 u16Counter = 0x0000;;user_app.c: 137:     u8 u8pattern 
-      +                          [6] = {0x01, 0x02, 0x04, 0x08, 0x10, 0x20};
-   297  01FF8C  EE21  F113         	lfsr	2,UserAppRun@F15926
-   298  01FF90  EE11  F119         	lfsr	1,UserAppRun@u8pattern
-   299  01FF94  0E05               	movlw	5
-   300  01FF96                     u11:
-   301  01FF96  C4DB F4E3          	movff	plusw2,plusw1
-   302  01FF9A  06E8               	decf	wreg,f,c
-   303  01FF9C  E2FC               	bc	u11
-   304  01FF9E                     
-   305                           ;user_app.c: 140:     static int pattern_index = 0;;user_app.c: 143:     static u8 u8Tem
-      +                          p = 0x00;;user_app.c: 147:     if(u16Counter == 500)
-   306  01FF9E  0EF4               	movlw	244
-   307  01FFA0  180F               	xorwf	UserAppRun@u16Counter^(0+1280),w,c
-   308  01FFA2  E106               	bnz	u21
-   309  01FFA4  0410               	decf	(UserAppRun@u16Counter+1)^(0+1280),w,c
-   310  01FFA6  A4D8               	btfss	status,2,c
-   311  01FFA8  EFD8  F0FF         	goto	u21
-   312  01FFAC  EFDA  F0FF         	goto	u20
-   313  01FFB0                     u21:
-   314  01FFB0  EFED  F0FF         	goto	l786
-   315  01FFB4                     u20:
-   316  01FFB4                     
-   317                           ;user_app.c: 148:     {;user_app.c: 149:         u16Counter = 0;
-   318  01FFB4  0E00               	movlw	0
-   319  01FFB6  6E10               	movwf	(UserAppRun@u16Counter+1)^(0+1280),c
-   320  01FFB8  0E00               	movlw	0
-   321  01FFBA  6E0F               	movwf	UserAppRun@u16Counter^(0+1280),c
-   322                           
-   323                           ;user_app.c: 150:         u8Temp = 0x80;
-   324  01FFBC  0E80               	movlw	128
-   325  01FFBE  6E11               	movwf	UserAppRun@u8Temp^(0+1280),c
-   326  01FFC0                     
-   327                           ;user_app.c: 151:         u8Temp |= u8pattern[pattern_index];
-   328  01FFC0  0E19               	movlw	low UserAppRun@u8pattern
-   329  01FFC2  240D               	addwf	UserAppRun@pattern_index^(0+1280),w,c
-   330  01FFC4  6ED9               	movwf	fsr2l,c
-   331  01FFC6  0E05               	movlw	high UserAppRun@u8pattern
-   332  01FFC8  200E               	addwfc	(UserAppRun@pattern_index+1)^(0+1280),w,c
-   333  01FFCA  6EDA               	movwf	fsr2h,c
-   334  01FFCC  50DF               	movf	indf2,w,c
-   335  01FFCE  1211               	iorwf	UserAppRun@u8Temp^(0+1280),f,c
-   336  01FFD0                     
-   337                           ;user_app.c: 152:         LATA = u8Temp;
-   338  01FFD0  0061  F444  F4BE   	movff	UserAppRun@u8Temp,1214	;volatile
-   339  01FFD6                     
-   340                           ;user_app.c: 154:         pattern_index++;
-   341  01FFD6  4A0D               	infsnz	UserAppRun@pattern_index^(0+1280),f,c
-   342  01FFD8  2A0E               	incf	(UserAppRun@pattern_index+1)^(0+1280),f,c
-   343  01FFDA                     l786:
-   344                           
-   345                           ;user_app.c: 157:     if(pattern_index == 6)
-   346  01FFDA  0E06               	movlw	6
-   347  01FFDC  180D               	xorwf	UserAppRun@pattern_index^(0+1280),w,c
-   348  01FFDE  100E               	iorwf	(UserAppRun@pattern_index+1)^(0+1280),w,c
-   349  01FFE0  A4D8               	btfss	status,2,c
-   350  01FFE2  EFF5  F0FF         	goto	u31
-   351  01FFE6  EFF7  F0FF         	goto	u30
-   352  01FFEA                     u31:
-   353  01FFEA  EFFB  F0FF         	goto	l790
-   354  01FFEE                     u30:
-   355  01FFEE                     
-   356                           ;user_app.c: 158:         pattern_index = 0;
-   357  01FFEE  0E00               	movlw	0
-   358  01FFF0  6E0E               	movwf	(UserAppRun@pattern_index+1)^(0+1280),c
-   359  01FFF2  0E00               	movlw	0
-   360  01FFF4  6E0D               	movwf	UserAppRun@pattern_index^(0+1280),c
-   361  01FFF6                     l790:
-   362                           
-   363                           ;user_app.c: 160:     u16Counter++;
-   364  01FFF6  4A0F               	infsnz	UserAppRun@u16Counter^(0+1280),f,c
-   365  01FFF8  2A10               	incf	(UserAppRun@u16Counter+1)^(0+1280),f,c
-   366  01FFFA  0012               	return		;funcret
-   367  01FFFC                     __end_of_UserAppRun:
+    55                           ; SFR Addresses
+    56  0000                     
+    57                           	psect	idataBANK6
+    58  01FEFC                     __pidataBANK6:
+    59                           	callstack 0
+    60                           
+    61                           ;initializer for _UserApp_u8sineTable
+    62  01FEFC  80                 	db	128
+    63  01FEFD  83                 	db	131
+    64  01FEFE  86                 	db	134
+    65  01FEFF  89                 	db	137
+    66  01FF00  8C                 	db	140
+    67  01FF01  8F                 	db	143
+    68  01FF02  92                 	db	146
+    69  01FF03  95                 	db	149
+    70  01FF04  98                 	db	152
+    71  01FF05  9B                 	db	155
+    72  01FF06  9E                 	db	158
+    73  01FF07  A2                 	db	162
+    74  01FF08  A5                 	db	165
+    75  01FF09  A7                 	db	167
+    76  01FF0A  AA                 	db	170
+    77  01FF0B  AD                 	db	173
+    78  01FF0C  B0                 	db	176
+    79  01FF0D  B3                 	db	179
+    80  01FF0E  B6                 	db	182
+    81  01FF0F  B9                 	db	185
+    82  01FF10  BC                 	db	188
+    83  01FF11  BE                 	db	190
+    84  01FF12  C1                 	db	193
+    85  01FF13  C4                 	db	196
+    86  01FF14  C6                 	db	198
+    87  01FF15  C9                 	db	201
+    88  01FF16  CB                 	db	203
+    89  01FF17  CE                 	db	206
+    90  01FF18  D0                 	db	208
+    91  01FF19  D3                 	db	211
+    92  01FF1A  D5                 	db	213
+    93  01FF1B  D7                 	db	215
+    94  01FF1C  DA                 	db	218
+    95  01FF1D  DC                 	db	220
+    96  01FF1E  DE                 	db	222
+    97  01FF1F  E0                 	db	224
+    98  01FF20  E2                 	db	226
+    99  01FF21  E4                 	db	228
+   100  01FF22  E6                 	db	230
+   101  01FF23  E8                 	db	232
+   102  01FF24  EA                 	db	234
+   103  01FF25  EB                 	db	235
+   104  01FF26  ED                 	db	237
+   105  01FF27  EE                 	db	238
+   106  01FF28  F0                 	db	240
+   107  01FF29  F1                 	db	241
+   108  01FF2A  F3                 	db	243
+   109  01FF2B  F4                 	db	244
+   110  01FF2C  F5                 	db	245
+   111  01FF2D  F6                 	db	246
+   112  01FF2E  F8                 	db	248
+   113  01FF2F  F9                 	db	249
+   114  01FF30  FA                 	db	250
+   115  01FF31  FA                 	db	250
+   116  01FF32  FB                 	db	251
+   117  01FF33  FC                 	db	252
+   118  01FF34  FD                 	db	253
+   119  01FF35  FD                 	db	253
+   120  01FF36  FE                 	db	254
+   121  01FF37  FE                 	db	254
+   122  01FF38  FE                 	db	254
+   123  01FF39  FF                 	db	255
+   124  01FF3A  FF                 	db	255
+   125  01FF3B  FF                 	db	255
+   126  01FF3C  FF                 	db	255
+   127  01FF3D  FF                 	db	255
+   128  01FF3E  FF                 	db	255
+   129  01FF3F  FF                 	db	255
+   130  01FF40  FE                 	db	254
+   131  01FF41  FE                 	db	254
+   132  01FF42  FE                 	db	254
+   133  01FF43  FD                 	db	253
+   134  01FF44  FD                 	db	253
+   135  01FF45  FC                 	db	252
+   136  01FF46  FB                 	db	251
+   137  01FF47  FA                 	db	250
+   138  01FF48  FA                 	db	250
+   139  01FF49  F9                 	db	249
+   140  01FF4A  F8                 	db	248
+   141  01FF4B  F6                 	db	246
+   142  01FF4C  F5                 	db	245
+   143  01FF4D  F4                 	db	244
+   144  01FF4E  F3                 	db	243
+   145  01FF4F  F1                 	db	241
+   146  01FF50  F0                 	db	240
+   147  01FF51  EE                 	db	238
+   148  01FF52  ED                 	db	237
+   149  01FF53  EB                 	db	235
+   150  01FF54  EA                 	db	234
+   151  01FF55  E8                 	db	232
+   152  01FF56  E6                 	db	230
+   153  01FF57  E4                 	db	228
+   154  01FF58  E2                 	db	226
+   155  01FF59  E0                 	db	224
+   156  01FF5A  DE                 	db	222
+   157  01FF5B  DC                 	db	220
+   158  01FF5C  DA                 	db	218
+   159  01FF5D  D7                 	db	215
+   160  01FF5E  D5                 	db	213
+   161  01FF5F  D3                 	db	211
+   162  01FF60  D0                 	db	208
+   163  01FF61  CE                 	db	206
+   164  01FF62  CB                 	db	203
+   165  01FF63  C9                 	db	201
+   166  01FF64  C6                 	db	198
+   167  01FF65  C4                 	db	196
+   168  01FF66  C1                 	db	193
+   169  01FF67  BE                 	db	190
+   170  01FF68  BC                 	db	188
+   171  01FF69  B9                 	db	185
+   172  01FF6A  B6                 	db	182
+   173  01FF6B  B3                 	db	179
+   174  01FF6C  B0                 	db	176
+   175  01FF6D  AD                 	db	173
+   176  01FF6E  AA                 	db	170
+   177  01FF6F  A7                 	db	167
+   178  01FF70  A5                 	db	165
+   179  01FF71  A2                 	db	162
+   180  01FF72  9E                 	db	158
+   181  01FF73  9B                 	db	155
+   182  01FF74  98                 	db	152
+   183  01FF75  95                 	db	149
+   184  01FF76  92                 	db	146
+   185  01FF77  8F                 	db	143
+   186  01FF78  8C                 	db	140
+   187  01FF79  89                 	db	137
+   188  01FF7A  86                 	db	134
+   189  01FF7B  83                 	db	131
+   190  01FF7C  80                 	db	128
+   191  01FF7D  7C                 	db	124
+   192  01FF7E  79                 	db	121
+   193  01FF7F  76                 	db	118
+   194  01FF80  73                 	db	115
+   195  01FF81  70                 	db	112
+   196  01FF82  6D                 	db	109
+   197  01FF83  6A                 	db	106
+   198  01FF84  67                 	db	103
+   199  01FF85  64                 	db	100
+   200  01FF86  61                 	db	97
+   201  01FF87  5D                 	db	93
+   202  01FF88  5A                 	db	90
+   203  01FF89  58                 	db	88
+   204  01FF8A  55                 	db	85
+   205  01FF8B  52                 	db	82
+   206  01FF8C  4F                 	db	79
+   207  01FF8D  4C                 	db	76
+   208  01FF8E  49                 	db	73
+   209  01FF8F  46                 	db	70
+   210  01FF90  43                 	db	67
+   211  01FF91  41                 	db	65
+   212  01FF92  3E                 	db	62
+   213  01FF93  3B                 	db	59
+   214  01FF94  39                 	db	57
+   215  01FF95  36                 	db	54
+   216  01FF96  34                 	db	52
+   217  01FF97  31                 	db	49
+   218  01FF98  2F                 	db	47
+   219  01FF99  2C                 	db	44
+   220  01FF9A  2A                 	db	42
+   221  01FF9B  28                 	db	40
+   222  01FF9C  25                 	db	37
+   223  01FF9D  23                 	db	35
+   224  01FF9E  21                 	db	33
+   225  01FF9F  1F                 	db	31
+   226  01FFA0  1D                 	db	29
+   227  01FFA1  1B                 	db	27
+   228  01FFA2  19                 	db	25
+   229  01FFA3  17                 	db	23
+   230  01FFA4  15                 	db	21
+   231  01FFA5  14                 	db	20
+   232  01FFA6  12                 	db	18
+   233  01FFA7  11                 	db	17
+   234  01FFA8  0F                 	db	15
+   235  01FFA9  0E                 	db	14
+   236  01FFAA  0C                 	db	12
+   237  01FFAB  0B                 	db	11
+   238  01FFAC  0A                 	db	10
+   239  01FFAD  09                 	db	9
+   240  01FFAE  07                 	db	7
+   241  01FFAF  06                 	db	6
+   242  01FFB0  05                 	db	5
+   243  01FFB1  05                 	db	5
+   244  01FFB2  04                 	db	4
+   245  01FFB3  03                 	db	3
+   246  01FFB4  02                 	db	2
+   247  01FFB5  02                 	db	2
+   248  01FFB6  01                 	db	1
+   249  01FFB7  01                 	db	1
+   250  01FFB8  01                 	db	1
+   251  01FFB9  00                 	db	0
+   252  01FFBA  00                 	db	0
+   253  01FFBB  00                 	db	0
+   254  01FFBC  00                 	db	0
+   255  01FFBD  00                 	db	0
+   256  01FFBE  00                 	db	0
+   257  01FFBF  00                 	db	0
+   258  01FFC0  01                 	db	1
+   259  01FFC1  01                 	db	1
+   260  01FFC2  01                 	db	1
+   261  01FFC3  02                 	db	2
+   262  01FFC4  02                 	db	2
+   263  01FFC5  03                 	db	3
+   264  01FFC6  04                 	db	4
+   265  01FFC7  05                 	db	5
+   266  01FFC8  05                 	db	5
+   267  01FFC9  06                 	db	6
+   268  01FFCA  07                 	db	7
+   269  01FFCB  09                 	db	9
+   270  01FFCC  0A                 	db	10
+   271  01FFCD  0B                 	db	11
+   272  01FFCE  0C                 	db	12
+   273  01FFCF  0E                 	db	14
+   274  01FFD0  0F                 	db	15
+   275  01FFD1  11                 	db	17
+   276  01FFD2  12                 	db	18
+   277  01FFD3  14                 	db	20
+   278  01FFD4  15                 	db	21
+   279  01FFD5  17                 	db	23
+   280  01FFD6  19                 	db	25
+   281  01FFD7  1B                 	db	27
+   282  01FFD8  1D                 	db	29
+   283  01FFD9  1F                 	db	31
+   284  01FFDA  21                 	db	33
+   285  01FFDB  23                 	db	35
+   286  01FFDC  25                 	db	37
+   287  01FFDD  28                 	db	40
+   288  01FFDE  2A                 	db	42
+   289  01FFDF  2C                 	db	44
+   290  01FFE0  2F                 	db	47
+   291  01FFE1  31                 	db	49
+   292  01FFE2  34                 	db	52
+   293  01FFE3  36                 	db	54
+   294  01FFE4  39                 	db	57
+   295  01FFE5  3B                 	db	59
+   296  01FFE6  3E                 	db	62
+   297  01FFE7  41                 	db	65
+   298  01FFE8  43                 	db	67
+   299  01FFE9  46                 	db	70
+   300  01FFEA  49                 	db	73
+   301  01FFEB  4C                 	db	76
+   302  01FFEC  4F                 	db	79
+   303  01FFED  52                 	db	82
+   304  01FFEE  55                 	db	85
+   305  01FFEF  58                 	db	88
+   306  01FFF0  5A                 	db	90
+   307  01FFF1  5D                 	db	93
+   308  01FFF2  61                 	db	97
+   309  01FFF3  64                 	db	100
+   310  01FFF4  67                 	db	103
+   311  01FFF5  6A                 	db	106
+   312  01FFF6  6D                 	db	109
+   313  01FFF7  70                 	db	112
+   314  01FFF8  73                 	db	115
+   315  01FFF9  76                 	db	118
+   316  01FFFA  79                 	db	121
+   317  01FFFB  7C                 	db	124
+   318  0000                     _DAC1DATL	set	125
+   319  0000                     _DAC1CON	set	127
+   320  0000                     _TMR0L	set	792
+   321  0000                     _TMR0H	set	793
+   322  0000                     _T0CON0bits	set	794
+   323  0000                     _T0CON1	set	795
+   324  0000                     _T0CON0	set	794
+   325  0000                     _ANSELA	set	1024
+   326  0000                     _PIR3bits	set	1201
+   327  0000                     _PIR3	set	1201
+   328  0000                     _TRISA	set	1222
+   329  0000                     _LATA	set	1214
+   330                           
+   331                           ; #config settings
+   332                           
+   333                           	psect	cinit
+   334  01FE8E                     __pcinit:
+   335                           	callstack 0
+   336  01FE8E                     start_initialization:
+   337                           	callstack 0
+   338  01FE8E                     __initialization:
+   339                           	callstack 0
+   340                           
+   341                           ; Initialize objects allocated to BANK6 (256 bytes)
+   342                           ; load TBLPTR registers with __pidataBANK6
+   343  01FE8E  0EFC               	movlw	low __pidataBANK6
+   344  01FE90  6EF6               	movwf	tblptrl,c
+   345  01FE92  0EFE               	movlw	high __pidataBANK6
+   346  01FE94  6EF7               	movwf	tblptrh,c
+   347  01FE96  0E01               	movlw	low (__pidataBANK6 shr (0+16))
+   348  01FE98  6EF8               	movwf	tblptru,c
+   349  01FE9A  EE01  F200         	lfsr	0,__pdataBANK6
+   350  01FE9E  EE10 F100          	lfsr	1,256
+   351  01FEA2                     copy_data0:
+   352  01FEA2  0009               	tblrd		*+
+   353  01FEA4  C4F5 F4EE          	movff	tablat,postinc0
+   354  01FEA8  50E5               	movf	postdec1,w,c
+   355  01FEAA  50E1               	movf	fsr1l,w,c
+   356  01FEAC  E1FA               	bnz	copy_data0
+   357  01FEAE  50E2               	movf	fsr1h,w,c
+   358  01FEB0  E1F8               	bnz	copy_data0
+   359                           
+   360                           ; Clear objects allocated to COMRAM (14 bytes)
+   361  01FEB2  EE01  F101         	lfsr	0,__pbssCOMRAM
+   362  01FEB6  0E0E               	movlw	14
+   363  01FEB8                     clear_0:
+   364  01FEB8  6AEE               	clrf	postinc0,c
+   365  01FEBA  06E8               	decf	wreg,f,c
+   366  01FEBC  E1FD               	bnz	clear_0
+   367  01FEBE                     end_of_initialization:
    368                           	callstack 0
-   369                           
-   370 ;; *************** function _UserAppInitialize *****************
-   371 ;; Defined at:
-   372 ;;		line 76 in file "user_app.c"
-   373 ;; Parameters:    Size  Location     Type
-   374 ;;		None
-   375 ;; Auto vars:     Size  Location     Type
-   376 ;;		None
-   377 ;; Return value:  Size  Location     Type
-   378 ;;                  1    wreg      void 
-   379 ;; Registers used:
-   380 ;;		wreg, status,2
-   381 ;; Tracked objects:
-   382 ;;		On entry : 0/0
-   383 ;;		On exit  : 0/0
-   384 ;;		Unchanged: 0/0
-   385 ;; Data sizes:     COMRAM   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12  BANK13  BANK14  BANK15  BANK1
+   369  01FEBE                     __end_of__initialization:
+   370                           	callstack 0
+   371  01FEBE  0100               	movlb	0
+   372  01FEC0  EF62  F0FF         	goto	_main	;jump to C main() function
+   373                           
+   374                           	psect	bssCOMRAM
+   375  000501                     __pbssCOMRAM:
+   376                           	callstack 0
+   377  000501                     _G_u32SystemFlags:
+   378                           	callstack 0
+   379  000501                     	ds	4
+   380  000505                     _G_u32SystemTime1s:
+   381                           	callstack 0
+   382  000505                     	ds	4
+   383  000509                     _G_u32SystemTime1ms:
+   384                           	callstack 0
+   385  000509                     	ds	4
+   386  00050D                     UserAppRun@u8Index:
+   387                           	callstack 0
+   388  00050D                     	ds	1
+   389  00050E                     _G_u8UserAppFlags:
+   390                           	callstack 0
+   391  00050E                     	ds	1
+   392                           
+   393                           	psect	dataBANK6
+   394  000600                     __pdataBANK6:
+   395                           	callstack 0
+   396  000600                     _UserApp_u8sineTable:
+   397                           	callstack 0
+   398  000600                     	ds	256
+   399                           
+   400                           	psect	cstackCOMRAM
+   401  00050F                     __pcstackCOMRAM:
+   402                           	callstack 0
+   403  00050F                     TimeXus@u16TimeXus:
+   404                           	callstack 0
+   405                           
+   406                           ; 2 bytes @ 0x0
+   407  00050F                     	ds	2
+   408  000511                     TimeXus@u16temp:
+   409                           	callstack 0
+   410                           
+   411                           ; 2 bytes @ 0x2
+   412  000511                     	ds	2
+   413  000513                     
+   414                           ; 1 bytes @ 0x4
+   415 ;;
+   416 ;;Main: autosize = 0, tempsize = 0, incstack = 0, save=0
+   417 ;;
+   418 ;; *************** function _main *****************
+   419 ;; Defined at:
+   420 ;;		line 35 in file "main.c"
+   421 ;; Parameters:    Size  Location     Type
+   422 ;;		None
+   423 ;; Auto vars:     Size  Location     Type
+   424 ;;		None
+   425 ;; Return value:  Size  Location     Type
+   426 ;;                  1    wreg      void 
+   427 ;; Registers used:
+   428 ;;		wreg, status,2, status,0, cstack
+   429 ;; Tracked objects:
+   430 ;;		On entry : 0/0
+   431 ;;		On exit  : 0/0
+   432 ;;		Unchanged: 0/0
+   433 ;; Data sizes:     COMRAM   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12  BANK13  BANK14  BANK15  BANK1
       +6  BANK17  BANK18  BANK19  BANK20  BANK21  BANK22  BANK23  BANK24  BANK25  BANK26  BANK27  BANK28  BANK29  BANK30  BANK3
       +1  BANK32  BANK33  BANK34  BANK35  BANK36  BANK37
-   386 ;;      Params:         0       0       0       0       0       0       0       0       0       0       0       0       
+   434 ;;      Params:         0       0       0       0       0       0       0       0       0       0       0       0       
       +0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       
       +0       0       0       0       0       0       0
-   387 ;;      Locals:         0       0       0       0       0       0       0       0       0       0       0       0       
+   435 ;;      Locals:         0       0       0       0       0       0       0       0       0       0       0       0       
       +0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       
       +0       0       0       0       0       0       0
-   388 ;;      Temps:          0       0       0       0       0       0       0       0       0       0       0       0       
+   436 ;;      Temps:          0       0       0       0       0       0       0       0       0       0       0       0       
       +0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       
       +0       0       0       0       0       0       0
-   389 ;;      Totals:         0       0       0       0       0       0       0       0       0       0       0       0       
+   437 ;;      Totals:         0       0       0       0       0       0       0       0       0       0       0       0       
       +0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       
       +0       0       0       0       0       0       0
-   390 ;;Total ram usage:        0 bytes
-   391 ;; Hardware stack levels used:    1
-   392 ;; This function calls:
-   393 ;;		Nothing
-   394 ;; This function is called by:
-   395 ;;		_main
-   396 ;; This function uses a non-reentrant model
-   397 ;;
-   398                           
-   399                           	psect	text2
-   400  01FEC4                     __ptext2:
-   401                           	callstack 0
-   402  01FEC4                     _UserAppInitialize:
-   403                           	callstack 127
-   404  01FEC4                     
-   405                           ;user_app.c: 79:     LATA = 0x80;
-   406  01FEC4  0E80               	movlw	128
-   407  01FEC6  6EBE               	movwf	190,c	;volatile
-   408                           
-   409                           ;user_app.c: 83:     T0CON0 = 0x90;
-   410  01FEC8  0E90               	movlw	144
-   411  01FECA  0103               	movlb	3	; () banked
-   412  01FECC  6F1A               	movwf	26,b	;volatile
-   413                           
-   414                           ;user_app.c: 84:     T0CON1 = 0x54;
-   415  01FECE  0E54               	movlw	84
-   416  01FED0  6F1B               	movwf	27,b	;volatile
-   417  01FED2                     
-   418                           ; BSR set to: 3
-   419  01FED2  0012               	return		;funcret
-   420  01FED4                     __end_of_UserAppInitialize:
-   421                           	callstack 0
-   422                           
-   423 ;; *************** function _TimeXus *****************
-   424 ;; Defined at:
-   425 ;;		line 101 in file "user_app.c"
-   426 ;; Parameters:    Size  Location     Type
-   427 ;;  u16TimeXus      2    0[COMRAM] unsigned short 
-   428 ;; Auto vars:     Size  Location     Type
-   429 ;;  u16temp         2    2[COMRAM] unsigned short 
-   430 ;; Return value:  Size  Location     Type
-   431 ;;                  1    wreg      void 
-   432 ;; Registers used:
-   433 ;;		wreg, status,2, status,0
-   434 ;; Tracked objects:
-   435 ;;		On entry : 0/0
-   436 ;;		On exit  : 0/0
-   437 ;;		Unchanged: 0/0
-   438 ;; Data sizes:     COMRAM   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12  BANK13  BANK14  BANK15  BANK1
-      +6  BANK17  BANK18  BANK19  BANK20  BANK21  BANK22  BANK23  BANK24  BANK25  BANK26  BANK27  BANK28  BANK29  BANK30  BANK3
-      +1  BANK32  BANK33  BANK34  BANK35  BANK36  BANK37
-   439 ;;      Params:         2       0       0       0       0       0       0       0       0       0       0       0       
-      +0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       
-      +0       0       0       0       0       0       0
-   440 ;;      Locals:         2       0       0       0       0       0       0       0       0       0       0       0       
-      +0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       
-      +0       0       0       0       0       0       0
-   441 ;;      Temps:          0       0       0       0       0       0       0       0       0       0       0       0       
-      +0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       
-      +0       0       0       0       0       0       0
-   442 ;;      Totals:         4       0       0       0       0       0       0       0       0       0       0       0       
-      +0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       
-      +0       0       0       0       0       0       0
-   443 ;;Total ram usage:        4 bytes
-   444 ;; Hardware stack levels used:    1
-   445 ;; This function calls:
-   446 ;;		Nothing
-   447 ;; This function is called by:
-   448 ;;		_main
-   449 ;; This function uses a non-reentrant model
-   450 ;;
-   451                           
-   452                           	psect	text3
-   453  01FEF6                     __ptext3:
-   454                           	callstack 0
-   455  01FEF6                     _TimeXus:
-   456                           	callstack 127
-   457  01FEF6                     
-   458                           ;user_app.c: 101: void TimeXus(u16 u16TimeXus);user_app.c: 102: {;user_app.c: 104:     T
-      +                          0CON0bits.EN = 0;
-   459  01FEF6  0103               	movlb	3	; () banked
-   460  01FEF8  9F1A               	bcf	26,7,b	;volatile
-   461                           
-   462                           ;user_app.c: 107:     u16 u16temp = 65535;
-   463  01FEFA  681B               	setf	TimeXus@u16temp^(0+1280),c
-   464  01FEFC  681C               	setf	(TimeXus@u16temp+1)^(0+1280),c
-   465  01FEFE                     
-   466                           ; BSR set to: 3
-   467                           ;user_app.c: 108:     u16temp = u16temp-u16TimeXus;
-   468  01FEFE  5019               	movf	TimeXus@u16TimeXus^(0+1280),w,c
-   469  01FF00  5C1B               	subwf	TimeXus@u16temp^(0+1280),w,c
-   470  01FF02  6E1B               	movwf	TimeXus@u16temp^(0+1280),c
-   471  01FF04  501A               	movf	(TimeXus@u16TimeXus+1)^(0+1280),w,c
-   472  01FF06  581C               	subwfb	(TimeXus@u16temp+1)^(0+1280),w,c
-   473  01FF08  6E1C               	movwf	(TimeXus@u16temp+1)^(0+1280),c
-   474  01FF0A                     
-   475                           ; BSR set to: 3
-   476                           ;user_app.c: 109:     TMR0H = (u8) ( (u16temp>>8) & 0x00FF);
-   477  01FF0A  501C               	movf	(TimeXus@u16temp+1)^(0+1280),w,c
-   478  01FF0C  6F19               	movwf	25,b	;volatile
-   479  01FF0E                     
-   480                           ; BSR set to: 3
-   481                           ;user_app.c: 110:     TMR0L = (u8) (u16temp & 0x00FF);
-   482  01FF0E  0061  F46C  F318   	movff	TimeXus@u16temp,792	;volatile
-   483  01FF14                     
-   484                           ; BSR set to: 3
-   485                           ;user_app.c: 113:     PIR3bits.TMR0IF = 0;
-   486  01FF14  9EB1               	bcf	177,7,c	;volatile
-   487  01FF16                     
-   488                           ; BSR set to: 3
-   489                           ;user_app.c: 114:     T0CON0bits.EN = 1;
-   490  01FF16  8F1A               	bsf	26,7,b	;volatile
-   491  01FF18                     
-   492                           ; BSR set to: 3
-   493  01FF18  0012               	return		;funcret
-   494  01FF1A                     __end_of_TimeXus:
-   495                           	callstack 0
-   496                           
-   497 ;; *************** function _SystemSleep *****************
-   498 ;; Defined at:
-   499 ;;		line 132 in file "encm369_pic18.c"
-   500 ;; Parameters:    Size  Location     Type
+   438 ;;Total ram usage:        0 bytes
+   439 ;; Hardware stack levels required when called:    1
+   440 ;; This function calls:
+   441 ;;		_ClockSetup
+   442 ;;		_GpioSetup
+   443 ;;		_SysTickSetup
+   444 ;;		_TimeXus
+   445 ;;		_UserAppInitialize
+   446 ;; This function is called by:
+   447 ;;		Startup code after reset
+   448 ;; This function uses a non-reentrant model
+   449 ;;
+   450                           
+   451                           	psect	text0
+   452  01FEC4                     __ptext0:
+   453                           	callstack 0
+   454  01FEC4                     _main:
+   455                           	callstack 127
+   456  01FEC4                     
+   457                           ;main.c: 37:   G_u32SystemFlags |= (u32)0x80000000;
+   458  01FEC4  8E04               	bsf	(_G_u32SystemFlags+3)^(0+1280),7,c	;volatile
+   459  01FEC6                     
+   460                           ;main.c: 40:   ClockSetup();
+   461  01FEC6  EC0D  F0FF         	call	_ClockSetup	;wreg free
+   462  01FECA                     
+   463                           ;main.c: 41:   SysTickSetup();
+   464  01FECA  EC24  F0FF         	call	_SysTickSetup	;wreg free
+   465  01FECE                     
+   466                           ;main.c: 42:   GpioSetup();
+   467  01FECE  EC0E  F0FF         	call	_GpioSetup	;wreg free
+   468  01FED2                     
+   469                           ;main.c: 47:   UserAppInitialize();
+   470  01FED2  EC19  F0FF         	call	_UserAppInitialize	;wreg free
+   471  01FED6                     l822:
+   472                           
+   473                           ;main.c: 53:   {;main.c: 58:      TimeXus(1);
+   474  01FED6  0E00               	movlw	0
+   475  01FED8  6E10               	movwf	(TimeXus@u16TimeXus+1)^(0+1280),c
+   476  01FEDA  0E01               	movlw	1
+   477  01FEDC  6E0F               	movwf	TimeXus@u16TimeXus^(0+1280),c
+   478  01FEDE  EC35  F0FF         	call	_TimeXus	;wreg free
+   479  01FEE2                     l50:
+   480  01FEE2  AEB1               	btfss	177,7,c	;volatile
+   481  01FEE4  EF76  F0FF         	goto	u21
+   482  01FEE8  EF78  F0FF         	goto	u20
+   483  01FEEC                     u21:
+   484  01FEEC  EF71  F0FF         	goto	l50
+   485  01FEF0                     u20:
+   486  01FEF0                     
+   487                           ;main.c: 60:      DAC1DATL++;
+   488  01FEF0  0100               	movlb	0	; () banked
+   489  01FEF2  2B7D               	incf	125,f,b	;volatile
+   490  01FEF4  EF6B  F0FF         	goto	l822
+   491  01FEF8  EFFE  F0FF         	goto	start
+   492  01FEFC                     __end_of_main:
+   493                           	callstack 0
+   494                           
+   495 ;; *************** function _UserAppInitialize *****************
+   496 ;; Defined at:
+   497 ;;		line 94 in file "user_app.c"
+   498 ;; Parameters:    Size  Location     Type
+   499 ;;		None
+   500 ;; Auto vars:     Size  Location     Type
    501 ;;		None
-   502 ;; Auto vars:     Size  Location     Type
-   503 ;;		None
-   504 ;; Return value:  Size  Location     Type
-   505 ;;                  1    wreg      void 
-   506 ;; Registers used:
-   507 ;;		None
-   508 ;; Tracked objects:
-   509 ;;		On entry : 0/0
-   510 ;;		On exit  : 0/0
-   511 ;;		Unchanged: 0/0
-   512 ;; Data sizes:     COMRAM   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12  BANK13  BANK14  BANK15  BANK1
+   502 ;; Return value:  Size  Location     Type
+   503 ;;                  1    wreg      void 
+   504 ;; Registers used:
+   505 ;;		wreg, status,2
+   506 ;; Tracked objects:
+   507 ;;		On entry : 0/0
+   508 ;;		On exit  : 0/0
+   509 ;;		Unchanged: 0/0
+   510 ;; Data sizes:     COMRAM   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12  BANK13  BANK14  BANK15  BANK1
       +6  BANK17  BANK18  BANK19  BANK20  BANK21  BANK22  BANK23  BANK24  BANK25  BANK26  BANK27  BANK28  BANK29  BANK30  BANK3
       +1  BANK32  BANK33  BANK34  BANK35  BANK36  BANK37
-   513 ;;      Params:         0       0       0       0       0       0       0       0       0       0       0       0       
+   511 ;;      Params:         0       0       0       0       0       0       0       0       0       0       0       0       
       +0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       
       +0       0       0       0       0       0       0
-   514 ;;      Locals:         0       0       0       0       0       0       0       0       0       0       0       0       
+   512 ;;      Locals:         0       0       0       0       0       0       0       0       0       0       0       0       
       +0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       
       +0       0       0       0       0       0       0
-   515 ;;      Temps:          0       0       0       0       0       0       0       0       0       0       0       0       
+   513 ;;      Temps:          0       0       0       0       0       0       0       0       0       0       0       0       
       +0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       
       +0       0       0       0       0       0       0
-   516 ;;      Totals:         0       0       0       0       0       0       0       0       0       0       0       0       
+   514 ;;      Totals:         0       0       0       0       0       0       0       0       0       0       0       0       
       +0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       
       +0       0       0       0       0       0       0
-   517 ;;Total ram usage:        0 bytes
-   518 ;; Hardware stack levels used:    1
-   519 ;; This function calls:
-   520 ;;		Nothing
-   521 ;; This function is called by:
-   522 ;;		_main
-   523 ;; This function uses a non-reentrant model
-   524 ;;
-   525                           
-   526                           	psect	text4
-   527  01FEAC                     __ptext4:
-   528                           	callstack 0
-   529  01FEAC                     _SystemSleep:
-   530                           	callstack 127
-   531  01FEAC  0012               	return		;funcret
-   532  01FEAE                     __end_of_SystemSleep:
-   533                           	callstack 0
-   534                           
-   535 ;; *************** function _SysTickSetup *****************
-   536 ;; Defined at:
-   537 ;;		line 110 in file "encm369_pic18.c"
-   538 ;; Parameters:    Size  Location     Type
-   539 ;;		None
-   540 ;; Auto vars:     Size  Location     Type
-   541 ;;		None
-   542 ;; Return value:  Size  Location     Type
-   543 ;;                  1    wreg      void 
-   544 ;; Registers used:
-   545 ;;		wreg, status,2
-   546 ;; Tracked objects:
-   547 ;;		On entry : 0/0
-   548 ;;		On exit  : 0/0
-   549 ;;		Unchanged: 0/0
-   550 ;; Data sizes:     COMRAM   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12  BANK13  BANK14  BANK15  BANK1
+   515 ;;Total ram usage:        0 bytes
+   516 ;; Hardware stack levels used:    1
+   517 ;; This function calls:
+   518 ;;		Nothing
+   519 ;; This function is called by:
+   520 ;;		_main
+   521 ;; This function uses a non-reentrant model
+   522 ;;
+   523                           
+   524                           	psect	text1
+   525  01FE32                     __ptext1:
+   526                           	callstack 0
+   527  01FE32                     _UserAppInitialize:
+   528                           	callstack 127
+   529  01FE32                     
+   530                           ;user_app.c: 97:     LATA = 0x80;
+   531  01FE32  0E80               	movlw	128
+   532  01FE34  6EBE               	movwf	190,c	;volatile
+   533                           
+   534                           ;user_app.c: 101:     T0CON0 = 0x90;
+   535  01FE36  0E90               	movlw	144
+   536  01FE38  0103               	movlb	3	; () banked
+   537  01FE3A  6F1A               	movwf	26,b	;volatile
+   538                           
+   539                           ;user_app.c: 102:     T0CON1 = 0x54;
+   540  01FE3C  0E54               	movlw	84
+   541  01FE3E  6F1B               	movwf	27,b	;volatile
+   542                           
+   543                           ;user_app.c: 105:     DAC1DATL = 0;
+   544  01FE40  0E00               	movlw	0
+   545  01FE42  0100               	movlb	0	; () banked
+   546  01FE44  6F7D               	movwf	125,b	;volatile
+   547  01FE46                     
+   548                           ; BSR set to: 0
+   549  01FE46  0012               	return		;funcret
+   550  01FE48                     __end_of_UserAppInitialize:
+   551                           	callstack 0
+   552                           
+   553 ;; *************** function _TimeXus *****************
+   554 ;; Defined at:
+   555 ;;		line 122 in file "user_app.c"
+   556 ;; Parameters:    Size  Location     Type
+   557 ;;  u16TimeXus      2    0[COMRAM] unsigned short 
+   558 ;; Auto vars:     Size  Location     Type
+   559 ;;  u16temp         2    2[COMRAM] unsigned short 
+   560 ;; Return value:  Size  Location     Type
+   561 ;;                  1    wreg      void 
+   562 ;; Registers used:
+   563 ;;		wreg, status,2, status,0
+   564 ;; Tracked objects:
+   565 ;;		On entry : 0/0
+   566 ;;		On exit  : 0/0
+   567 ;;		Unchanged: 0/0
+   568 ;; Data sizes:     COMRAM   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12  BANK13  BANK14  BANK15  BANK1
       +6  BANK17  BANK18  BANK19  BANK20  BANK21  BANK22  BANK23  BANK24  BANK25  BANK26  BANK27  BANK28  BANK29  BANK30  BANK3
       +1  BANK32  BANK33  BANK34  BANK35  BANK36  BANK37
-   551 ;;      Params:         0       0       0       0       0       0       0       0       0       0       0       0       
+   569 ;;      Params:         2       0       0       0       0       0       0       0       0       0       0       0       
       +0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       
       +0       0       0       0       0       0       0
-   552 ;;      Locals:         0       0       0       0       0       0       0       0       0       0       0       0       
+   570 ;;      Locals:         2       0       0       0       0       0       0       0       0       0       0       0       
       +0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       
       +0       0       0       0       0       0       0
-   553 ;;      Temps:          0       0       0       0       0       0       0       0       0       0       0       0       
+   571 ;;      Temps:          0       0       0       0       0       0       0       0       0       0       0       0       
       +0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       
       +0       0       0       0       0       0       0
-   554 ;;      Totals:         0       0       0       0       0       0       0       0       0       0       0       0       
+   572 ;;      Totals:         4       0       0       0       0       0       0       0       0       0       0       0       
       +0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       
       +0       0       0       0       0       0       0
-   555 ;;Total ram usage:        0 bytes
-   556 ;; Hardware stack levels used:    1
-   557 ;; This function calls:
-   558 ;;		Nothing
-   559 ;; This function is called by:
-   560 ;;		_main
-   561 ;; This function uses a non-reentrant model
-   562 ;;
-   563                           
-   564                           	psect	text5
-   565  01FED4                     __ptext5:
-   566                           	callstack 0
-   567  01FED4                     _SysTickSetup:
-   568                           	callstack 127
-   569  01FED4                     
-   570                           ;encm369_pic18.c: 112:   G_u32SystemTime1ms = 0;
-   571  01FED4  0E00               	movlw	0
-   572  01FED6  6E09               	movwf	_G_u32SystemTime1ms^(0+1280),c	;volatile
-   573  01FED8  0E00               	movlw	0
-   574  01FEDA  6E0A               	movwf	(_G_u32SystemTime1ms+1)^(0+1280),c	;volatile
-   575  01FEDC  0E00               	movlw	0
-   576  01FEDE  6E0B               	movwf	(_G_u32SystemTime1ms+2)^(0+1280),c	;volatile
-   577  01FEE0  0E00               	movlw	0
-   578  01FEE2  6E0C               	movwf	(_G_u32SystemTime1ms+3)^(0+1280),c	;volatile
-   579                           
-   580                           ;encm369_pic18.c: 113:   G_u32SystemTime1s = 0;
-   581  01FEE4  0E00               	movlw	0
-   582  01FEE6  6E05               	movwf	_G_u32SystemTime1s^(0+1280),c	;volatile
-   583  01FEE8  0E00               	movlw	0
-   584  01FEEA  6E06               	movwf	(_G_u32SystemTime1s+1)^(0+1280),c	;volatile
-   585  01FEEC  0E00               	movlw	0
-   586  01FEEE  6E07               	movwf	(_G_u32SystemTime1s+2)^(0+1280),c	;volatile
-   587  01FEF0  0E00               	movlw	0
-   588  01FEF2  6E08               	movwf	(_G_u32SystemTime1s+3)^(0+1280),c	;volatile
-   589  01FEF4  0012               	return		;funcret
-   590  01FEF6                     __end_of_SysTickSetup:
-   591                           	callstack 0
-   592                           
-   593 ;; *************** function _GpioSetup *****************
-   594 ;; Defined at:
-   595 ;;		line 89 in file "encm369_pic18.c"
-   596 ;; Parameters:    Size  Location     Type
-   597 ;;		None
-   598 ;; Auto vars:     Size  Location     Type
-   599 ;;		None
-   600 ;; Return value:  Size  Location     Type
-   601 ;;                  1    wreg      void 
-   602 ;; Registers used:
-   603 ;;		wreg, status,2
-   604 ;; Tracked objects:
-   605 ;;		On entry : 0/0
-   606 ;;		On exit  : 0/0
-   607 ;;		Unchanged: 0/0
-   608 ;; Data sizes:     COMRAM   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12  BANK13  BANK14  BANK15  BANK1
+   573 ;;Total ram usage:        4 bytes
+   574 ;; Hardware stack levels used:    1
+   575 ;; This function calls:
+   576 ;;		Nothing
+   577 ;; This function is called by:
+   578 ;;		_main
+   579 ;; This function uses a non-reentrant model
+   580 ;;
+   581                           
+   582                           	psect	text2
+   583  01FE6A                     __ptext2:
+   584                           	callstack 0
+   585  01FE6A                     _TimeXus:
+   586                           	callstack 127
+   587  01FE6A                     
+   588                           ;user_app.c: 122: void TimeXus(u16 u16TimeXus);user_app.c: 123: {;user_app.c: 125:     T
+      +                          0CON0bits.EN = 0;
+   589  01FE6A  0103               	movlb	3	; () banked
+   590  01FE6C  9F1A               	bcf	26,7,b	;volatile
+   591                           
+   592                           ;user_app.c: 128:     u16 u16temp = 65535;
+   593  01FE6E  6811               	setf	TimeXus@u16temp^(0+1280),c
+   594  01FE70  6812               	setf	(TimeXus@u16temp+1)^(0+1280),c
+   595  01FE72                     
+   596                           ; BSR set to: 3
+   597                           ;user_app.c: 129:     u16temp = u16temp-u16TimeXus;
+   598  01FE72  500F               	movf	TimeXus@u16TimeXus^(0+1280),w,c
+   599  01FE74  5C11               	subwf	TimeXus@u16temp^(0+1280),w,c
+   600  01FE76  6E11               	movwf	TimeXus@u16temp^(0+1280),c
+   601  01FE78  5010               	movf	(TimeXus@u16TimeXus+1)^(0+1280),w,c
+   602  01FE7A  5812               	subwfb	(TimeXus@u16temp+1)^(0+1280),w,c
+   603  01FE7C  6E12               	movwf	(TimeXus@u16temp+1)^(0+1280),c
+   604  01FE7E                     
+   605                           ; BSR set to: 3
+   606                           ;user_app.c: 130:     TMR0H = (u8) ( (u16temp>>8) & 0x00FF);
+   607  01FE7E  5012               	movf	(TimeXus@u16temp+1)^(0+1280),w,c
+   608  01FE80  6F19               	movwf	25,b	;volatile
+   609  01FE82                     
+   610                           ; BSR set to: 3
+   611                           ;user_app.c: 131:     TMR0L = (u8) (u16temp & 0x00FF);
+   612  01FE82  0061  F444  F318   	movff	TimeXus@u16temp,792	;volatile
+   613  01FE88                     
+   614                           ; BSR set to: 3
+   615                           ;user_app.c: 134:     PIR3bits.TMR0IF = 0;
+   616  01FE88  9EB1               	bcf	177,7,c	;volatile
+   617  01FE8A                     
+   618                           ; BSR set to: 3
+   619                           ;user_app.c: 135:     T0CON0bits.EN = 1;
+   620  01FE8A  8F1A               	bsf	26,7,b	;volatile
+   621  01FE8C                     
+   622                           ; BSR set to: 3
+   623  01FE8C  0012               	return		;funcret
+   624  01FE8E                     __end_of_TimeXus:
+   625                           	callstack 0
+   626                           
+   627 ;; *************** function _SysTickSetup *****************
+   628 ;; Defined at:
+   629 ;;		line 113 in file "encm369_pic18.c"
+   630 ;; Parameters:    Size  Location     Type
+   631 ;;		None
+   632 ;; Auto vars:     Size  Location     Type
+   633 ;;		None
+   634 ;; Return value:  Size  Location     Type
+   635 ;;                  1    wreg      void 
+   636 ;; Registers used:
+   637 ;;		wreg, status,2
+   638 ;; Tracked objects:
+   639 ;;		On entry : 0/0
+   640 ;;		On exit  : 0/0
+   641 ;;		Unchanged: 0/0
+   642 ;; Data sizes:     COMRAM   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12  BANK13  BANK14  BANK15  BANK1
       +6  BANK17  BANK18  BANK19  BANK20  BANK21  BANK22  BANK23  BANK24  BANK25  BANK26  BANK27  BANK28  BANK29  BANK30  BANK3
       +1  BANK32  BANK33  BANK34  BANK35  BANK36  BANK37
-   609 ;;      Params:         0       0       0       0       0       0       0       0       0       0       0       0       
+   643 ;;      Params:         0       0       0       0       0       0       0       0       0       0       0       0       
       +0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       
       +0       0       0       0       0       0       0
-   610 ;;      Locals:         0       0       0       0       0       0       0       0       0       0       0       0       
+   644 ;;      Locals:         0       0       0       0       0       0       0       0       0       0       0       0       
       +0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       
       +0       0       0       0       0       0       0
-   611 ;;      Temps:          0       0       0       0       0       0       0       0       0       0       0       0       
+   645 ;;      Temps:          0       0       0       0       0       0       0       0       0       0       0       0       
       +0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       
       +0       0       0       0       0       0       0
-   612 ;;      Totals:         0       0       0       0       0       0       0       0       0       0       0       0       
+   646 ;;      Totals:         0       0       0       0       0       0       0       0       0       0       0       0       
       +0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       
       +0       0       0       0       0       0       0
-   613 ;;Total ram usage:        0 bytes
-   614 ;; Hardware stack levels used:    1
-   615 ;; This function calls:
-   616 ;;		Nothing
-   617 ;; This function is called by:
-   618 ;;		_main
-   619 ;; This function uses a non-reentrant model
-   620 ;;
-   621                           
-   622                           	psect	text6
-   623  01FEB4                     __ptext6:
-   624                           	callstack 0
-   625  01FEB4                     _GpioSetup:
-   626                           	callstack 127
-   627  01FEB4                     
-   628                           ;encm369_pic18.c: 91:     LATA = 0x80;
-   629  01FEB4  0E80               	movlw	128
-   630  01FEB6  6EBE               	movwf	190,c	;volatile
-   631                           
-   632                           ;encm369_pic18.c: 92:     TRISA = 0x00;
-   633  01FEB8  0E00               	movlw	0
-   634  01FEBA  6EC6               	movwf	198,c	;volatile
-   635                           
-   636                           ;encm369_pic18.c: 93:     ANSELA = 0x00;
-   637  01FEBC  0E00               	movlw	0
-   638  01FEBE  0104               	movlb	4	; () banked
-   639  01FEC0  6F00               	movwf	0,b	;volatile
-   640  01FEC2                     
-   641                           ; BSR set to: 4
-   642  01FEC2  0012               	return		;funcret
-   643  01FEC4                     __end_of_GpioSetup:
-   644                           	callstack 0
-   645                           
-   646 ;; *************** function _ClockSetup *****************
-   647 ;; Defined at:
-   648 ;;		line 70 in file "encm369_pic18.c"
-   649 ;; Parameters:    Size  Location     Type
-   650 ;;		None
-   651 ;; Auto vars:     Size  Location     Type
-   652 ;;		None
-   653 ;; Return value:  Size  Location     Type
-   654 ;;                  1    wreg      void 
-   655 ;; Registers used:
-   656 ;;		None
-   657 ;; Tracked objects:
-   658 ;;		On entry : 0/0
-   659 ;;		On exit  : 0/0
-   660 ;;		Unchanged: 0/0
-   661 ;; Data sizes:     COMRAM   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12  BANK13  BANK14  BANK15  BANK1
+   647 ;;Total ram usage:        0 bytes
+   648 ;; Hardware stack levels used:    1
+   649 ;; This function calls:
+   650 ;;		Nothing
+   651 ;; This function is called by:
+   652 ;;		_main
+   653 ;; This function uses a non-reentrant model
+   654 ;;
+   655                           
+   656                           	psect	text3
+   657  01FE48                     __ptext3:
+   658                           	callstack 0
+   659  01FE48                     _SysTickSetup:
+   660                           	callstack 127
+   661  01FE48                     
+   662                           ;encm369_pic18.c: 115:   G_u32SystemTime1ms = 0;
+   663  01FE48  0E00               	movlw	0
+   664  01FE4A  6E09               	movwf	_G_u32SystemTime1ms^(0+1280),c	;volatile
+   665  01FE4C  0E00               	movlw	0
+   666  01FE4E  6E0A               	movwf	(_G_u32SystemTime1ms+1)^(0+1280),c	;volatile
+   667  01FE50  0E00               	movlw	0
+   668  01FE52  6E0B               	movwf	(_G_u32SystemTime1ms+2)^(0+1280),c	;volatile
+   669  01FE54  0E00               	movlw	0
+   670  01FE56  6E0C               	movwf	(_G_u32SystemTime1ms+3)^(0+1280),c	;volatile
+   671                           
+   672                           ;encm369_pic18.c: 116:   G_u32SystemTime1s = 0;
+   673  01FE58  0E00               	movlw	0
+   674  01FE5A  6E05               	movwf	_G_u32SystemTime1s^(0+1280),c	;volatile
+   675  01FE5C  0E00               	movlw	0
+   676  01FE5E  6E06               	movwf	(_G_u32SystemTime1s+1)^(0+1280),c	;volatile
+   677  01FE60  0E00               	movlw	0
+   678  01FE62  6E07               	movwf	(_G_u32SystemTime1s+2)^(0+1280),c	;volatile
+   679  01FE64  0E00               	movlw	0
+   680  01FE66  6E08               	movwf	(_G_u32SystemTime1s+3)^(0+1280),c	;volatile
+   681  01FE68  0012               	return		;funcret
+   682  01FE6A                     __end_of_SysTickSetup:
+   683                           	callstack 0
+   684                           
+   685 ;; *************** function _GpioSetup *****************
+   686 ;; Defined at:
+   687 ;;		line 89 in file "encm369_pic18.c"
+   688 ;; Parameters:    Size  Location     Type
+   689 ;;		None
+   690 ;; Auto vars:     Size  Location     Type
+   691 ;;		None
+   692 ;; Return value:  Size  Location     Type
+   693 ;;                  1    wreg      void 
+   694 ;; Registers used:
+   695 ;;		wreg, status,2
+   696 ;; Tracked objects:
+   697 ;;		On entry : 0/0
+   698 ;;		On exit  : 0/0
+   699 ;;		Unchanged: 0/0
+   700 ;; Data sizes:     COMRAM   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12  BANK13  BANK14  BANK15  BANK1
       +6  BANK17  BANK18  BANK19  BANK20  BANK21  BANK22  BANK23  BANK24  BANK25  BANK26  BANK27  BANK28  BANK29  BANK30  BANK3
       +1  BANK32  BANK33  BANK34  BANK35  BANK36  BANK37
-   662 ;;      Params:         0       0       0       0       0       0       0       0       0       0       0       0       
+   701 ;;      Params:         0       0       0       0       0       0       0       0       0       0       0       0       
       +0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       
       +0       0       0       0       0       0       0
-   663 ;;      Locals:         0       0       0       0       0       0       0       0       0       0       0       0       
+   702 ;;      Locals:         0       0       0       0       0       0       0       0       0       0       0       0       
       +0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       
       +0       0       0       0       0       0       0
-   664 ;;      Temps:          0       0       0       0       0       0       0       0       0       0       0       0       
+   703 ;;      Temps:          0       0       0       0       0       0       0       0       0       0       0       0       
       +0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       
       +0       0       0       0       0       0       0
-   665 ;;      Totals:         0       0       0       0       0       0       0       0       0       0       0       0       
+   704 ;;      Totals:         0       0       0       0       0       0       0       0       0       0       0       0       
       +0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       
       +0       0       0       0       0       0       0
-   666 ;;Total ram usage:        0 bytes
-   667 ;; Hardware stack levels used:    1
-   668 ;; This function calls:
-   669 ;;		Nothing
-   670 ;; This function is called by:
-   671 ;;		_main
-   672 ;; This function uses a non-reentrant model
-   673 ;;
-   674                           
-   675                           	psect	text7
-   676  01FEAA                     __ptext7:
-   677                           	callstack 0
-   678  01FEAA                     _ClockSetup:
-   679                           	callstack 127
-   680  01FEAA  0012               	return		;funcret
-   681  01FEAC                     __end_of_ClockSetup:
-   682                           	callstack 0
-   683  0000                     
-   684                           	psect	rparam
-   685  0000                     
-   686                           	psect	idloc
-   687                           
-   688                           ;Config register IDLOC0 @ 0x200000
-   689                           ;	unspecified, using default values
-   690  200000                     	org	2097152
-   691  200000  0FFF               	dw	4095
-   692                           
-   693                           ;Config register IDLOC1 @ 0x200002
-   694                           ;	unspecified, using default values
-   695  200002                     	org	2097154
-   696  200002  0FFF               	dw	4095
-   697                           
-   698                           ;Config register IDLOC2 @ 0x200004
-   699                           ;	unspecified, using default values
-   700  200004                     	org	2097156
-   701  200004  0FFF               	dw	4095
-   702                           
-   703                           ;Config register IDLOC3 @ 0x200006
-   704                           ;	unspecified, using default values
-   705  200006                     	org	2097158
-   706  200006  0FFF               	dw	4095
-   707                           
-   708                           ;Config register IDLOC4 @ 0x200008
-   709                           ;	unspecified, using default values
-   710  200008                     	org	2097160
-   711  200008  0FFF               	dw	4095
-   712                           
-   713                           ;Config register IDLOC5 @ 0x20000A
-   714                           ;	unspecified, using default values
-   715  20000A                     	org	2097162
-   716  20000A  0FFF               	dw	4095
-   717                           
-   718                           ;Config register IDLOC6 @ 0x20000C
-   719                           ;	unspecified, using default values
-   720  20000C                     	org	2097164
-   721  20000C  0FFF               	dw	4095
-   722                           
-   723                           ;Config register IDLOC7 @ 0x20000E
-   724                           ;	unspecified, using default values
-   725  20000E                     	org	2097166
-   726  20000E  0FFF               	dw	4095
+   705 ;;Total ram usage:        0 bytes
+   706 ;; Hardware stack levels used:    1
+   707 ;; This function calls:
+   708 ;;		Nothing
+   709 ;; This function is called by:
+   710 ;;		_main
+   711 ;; This function uses a non-reentrant model
+   712 ;;
+   713                           
+   714                           	psect	text4
+   715  01FE1C                     __ptext4:
+   716                           	callstack 0
+   717  01FE1C                     _GpioSetup:
+   718                           	callstack 127
+   719  01FE1C                     
+   720                           ;encm369_pic18.c: 91:     LATA = 0x80;
+   721  01FE1C  0E80               	movlw	128
+   722  01FE1E  6EBE               	movwf	190,c	;volatile
+   723                           
+   724                           ;encm369_pic18.c: 92:     TRISA = 0x00;
+   725  01FE20  0E00               	movlw	0
+   726  01FE22  6EC6               	movwf	198,c	;volatile
    727                           
-   728                           ;Config register IDLOC8 @ 0x200010
-   729                           ;	unspecified, using default values
-   730  200010                     	org	2097168
-   731  200010  0FFF               	dw	4095
+   728                           ;encm369_pic18.c: 93:     ANSELA = 0x00;
+   729  01FE24  0E00               	movlw	0
+   730  01FE26  0104               	movlb	4	; () banked
+   731  01FE28  6F00               	movwf	0,b	;volatile
    732                           
-   733                           ;Config register IDLOC9 @ 0x200012
-   734                           ;	unspecified, using default values
-   735  200012                     	org	2097170
-   736  200012  0FFF               	dw	4095
-   737                           
-   738                           ;Config register IDLOC10 @ 0x200014
-   739                           ;	unspecified, using default values
-   740  200014                     	org	2097172
-   741  200014  0FFF               	dw	4095
+   733                           ;encm369_pic18.c: 96:     DAC1CON = 0xA0 ;
+   734  01FE2A  0EA0               	movlw	160
+   735  01FE2C  0100               	movlb	0	; () banked
+   736  01FE2E  6F7F               	movwf	127,b	;volatile
+   737  01FE30                     
+   738                           ; BSR set to: 0
+   739  01FE30  0012               	return		;funcret
+   740  01FE32                     __end_of_GpioSetup:
+   741                           	callstack 0
    742                           
-   743                           ;Config register IDLOC11 @ 0x200016
-   744                           ;	unspecified, using default values
-   745  200016                     	org	2097174
-   746  200016  0FFF               	dw	4095
-   747                           
-   748                           ;Config register IDLOC12 @ 0x200018
-   749                           ;	unspecified, using default values
-   750  200018                     	org	2097176
-   751  200018  0FFF               	dw	4095
-   752                           
-   753                           ;Config register IDLOC13 @ 0x20001A
-   754                           ;	unspecified, using default values
-   755  20001A                     	org	2097178
-   756  20001A  0FFF               	dw	4095
-   757                           
-   758                           ;Config register IDLOC14 @ 0x20001C
-   759                           ;	unspecified, using default values
-   760  20001C                     	org	2097180
-   761  20001C  0FFF               	dw	4095
-   762                           
-   763                           ;Config register IDLOC15 @ 0x20001E
-   764                           ;	unspecified, using default values
-   765  20001E                     	org	2097182
-   766  20001E  0FFF               	dw	4095
-   767                           
-   768                           	psect	config
-   769                           
-   770                           ;Config register CONFIG1 @ 0x300000
-   771                           ;	External Oscillator Selection
-   772                           ;	FEXTOSC = OFF, Oscillator not enabled
-   773                           ;	Reset Oscillator Selection
-   774                           ;	RSTOSC = HFINTOSC_64MHZ, HFINTOSC with HFFRQ = 64 MHz and CDIV = 1:1
-   775  300000                     	org	3145728
-   776  300000  8C                 	db	140
-   777                           
-   778                           ;Config register CONFIG2 @ 0x300001
-   779                           ;	Clock out Enable bit
-   780                           ;	CLKOUTEN = ON, CLKOUT function is enabled
-   781                           ;	PRLOCKED One-Way Set Enable bit
-   782                           ;	PR1WAY = ON, PRLOCKED bit can be cleared and set only once
-   783                           ;	Clock Switch Enable bit
-   784                           ;	CSWEN = ON, Writing to NOSC and NDIV is allowed
-   785                           ;	Fail-Safe Clock Monitor Enable bit
-   786                           ;	FCMEN = ON, Fail-Safe Clock Monitor enabled
-   787  300001                     	org	3145729
-   788  300001  FE                 	db	254
+   743 ;; *************** function _ClockSetup *****************
+   744 ;; Defined at:
+   745 ;;		line 70 in file "encm369_pic18.c"
+   746 ;; Parameters:    Size  Location     Type
+   747 ;;		None
+   748 ;; Auto vars:     Size  Location     Type
+   749 ;;		None
+   750 ;; Return value:  Size  Location     Type
+   751 ;;                  1    wreg      void 
+   752 ;; Registers used:
+   753 ;;		None
+   754 ;; Tracked objects:
+   755 ;;		On entry : 0/0
+   756 ;;		On exit  : 0/0
+   757 ;;		Unchanged: 0/0
+   758 ;; Data sizes:     COMRAM   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12  BANK13  BANK14  BANK15  BANK1
+      +6  BANK17  BANK18  BANK19  BANK20  BANK21  BANK22  BANK23  BANK24  BANK25  BANK26  BANK27  BANK28  BANK29  BANK30  BANK3
+      +1  BANK32  BANK33  BANK34  BANK35  BANK36  BANK37
+   759 ;;      Params:         0       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0       0       0       0
+   760 ;;      Locals:         0       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0       0       0       0
+   761 ;;      Temps:          0       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0       0       0       0
+   762 ;;      Totals:         0       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0       0       0       0       0       0       0       0       0       0       0       0       
+      +0       0       0       0       0       0       0
+   763 ;;Total ram usage:        0 bytes
+   764 ;; Hardware stack levels used:    1
+   765 ;; This function calls:
+   766 ;;		Nothing
+   767 ;; This function is called by:
+   768 ;;		_main
+   769 ;; This function uses a non-reentrant model
+   770 ;;
+   771                           
+   772                           	psect	text5
+   773  01FE1A                     __ptext5:
+   774                           	callstack 0
+   775  01FE1A                     _ClockSetup:
+   776                           	callstack 127
+   777  01FE1A  0012               	return		;funcret
+   778  01FE1C                     __end_of_ClockSetup:
+   779                           	callstack 0
+   780  0000                     
+   781                           	psect	rparam
+   782  0000                     
+   783                           	psect	idloc
+   784                           
+   785                           ;Config register IDLOC0 @ 0x200000
+   786                           ;	unspecified, using default values
+   787  200000                     	org	2097152
+   788  200000  0FFF               	dw	4095
    789                           
-   790                           ;Config register CONFIG3 @ 0x300002
-   791                           ;	MCLR Enable bit
-   792                           ;	MCLRE = EXTMCLR, If LVP = 0, MCLR pin is MCLR; If LVP = 1, RE3 pin function is MCLR
-   793                           ;	Power-up timer selection bits
-   794                           ;	PWRTS = PWRT_OFF, PWRT is disabled
-   795                           ;	Multi-vector enable bit
-   796                           ;	MVECEN = ON, Multi-vector enabled, Vector table used for interrupts
-   797                           ;	IVTLOCK bit One-way set enable bit
-   798                           ;	IVT1WAY = ON, IVTLOCKED bit can be cleared and set only once
-   799                           ;	Low Power BOR Enable bit
-   800                           ;	LPBOREN = OFF, Low-Power BOR disabled
-   801                           ;	Brown-out Reset Enable bits
-   802                           ;	BOREN = SBORDIS, Brown-out Reset enabled , SBOREN bit is ignored
-   803  300002                     	org	3145730
-   804  300002  FF                 	db	255
-   805                           
-   806                           ;Config register CONFIG4 @ 0x300003
-   807                           ;	Brown-out Reset Voltage Selection bits
-   808                           ;	BORV = VBOR_2P85, Brown-out Reset Voltage (VBOR) set to 2.8V
-   809                           ;	ZCD Disable bit
-   810                           ;	ZCD = OFF, ZCD module is disabled. ZCD can be enabled by setting the ZCDSEN bit of ZCD
-      +                          CON
-   811                           ;	PPSLOCK bit One-Way Set Enable bit
-   812                           ;	PPS1WAY = ON, PPSLOCKED bit can be cleared and set only once; PPS registers remain loc
-      +                          ked after one clear/set cycle
-   813                           ;	Stack Full/Underflow Reset Enable bit
-   814                           ;	STVREN = ON, Stack full/underflow will cause Reset
-   815                           ;	Low Voltage Programming Enable bit
-   816                           ;	LVP = ON, Low voltage programming enabled. MCLR/VPP pin function is MCLR. MCLRE config
-      +                          uration bit is ignored
-   817                           ;	Extended Instruction Set Enable bit
-   818                           ;	XINST = OFF, Extended Instruction Set and Indexed Addressing Mode disabled
-   819  300003                     	org	3145731
-   820  300003  FC                 	db	252
-   821                           
-   822                           ;Config register CONFIG5 @ 0x300004
-   823                           ;	WDT Period selection bits
-   824                           ;	WDTCPS = WDTCPS_31, Divider ratio 1:65536; software control of WDTPS
-   825                           ;	WDT operating mode
-   826                           ;	WDTE = OFF, WDT Disabled; SWDTEN is ignored
-   827  300004                     	org	3145732
-   828  300004  9F                 	db	159
+   790                           ;Config register IDLOC1 @ 0x200002
+   791                           ;	unspecified, using default values
+   792  200002                     	org	2097154
+   793  200002  0FFF               	dw	4095
+   794                           
+   795                           ;Config register IDLOC2 @ 0x200004
+   796                           ;	unspecified, using default values
+   797  200004                     	org	2097156
+   798  200004  0FFF               	dw	4095
+   799                           
+   800                           ;Config register IDLOC3 @ 0x200006
+   801                           ;	unspecified, using default values
+   802  200006                     	org	2097158
+   803  200006  0FFF               	dw	4095
+   804                           
+   805                           ;Config register IDLOC4 @ 0x200008
+   806                           ;	unspecified, using default values
+   807  200008                     	org	2097160
+   808  200008  0FFF               	dw	4095
+   809                           
+   810                           ;Config register IDLOC5 @ 0x20000A
+   811                           ;	unspecified, using default values
+   812  20000A                     	org	2097162
+   813  20000A  0FFF               	dw	4095
+   814                           
+   815                           ;Config register IDLOC6 @ 0x20000C
+   816                           ;	unspecified, using default values
+   817  20000C                     	org	2097164
+   818  20000C  0FFF               	dw	4095
+   819                           
+   820                           ;Config register IDLOC7 @ 0x20000E
+   821                           ;	unspecified, using default values
+   822  20000E                     	org	2097166
+   823  20000E  0FFF               	dw	4095
+   824                           
+   825                           ;Config register IDLOC8 @ 0x200010
+   826                           ;	unspecified, using default values
+   827  200010                     	org	2097168
+   828  200010  0FFF               	dw	4095
    829                           
-   830                           ;Config register CONFIG6 @ 0x300005
-   831                           ;	WDT Window Select bits
-   832                           ;	WDTCWS = WDTCWS_7, window always open (100%); software control; keyed access not requi
-      +                          red
-   833                           ;	WDT input clock selector
-   834                           ;	WDTCCS = SC, Software Control
-   835  300005                     	org	3145733
-   836  300005  FF                 	db	255
-   837                           
-   838                           ;Config register CONFIG7 @ 0x300006
-   839                           ;	Boot Block Size selection bits
-   840                           ;	BBSIZE = BBSIZE_512, Boot Block size is 512 words
-   841                           ;	Boot Block enable bit
-   842                           ;	BBEN = OFF, Boot block disabled
-   843                           ;	Storage Area Flash enable bit
-   844                           ;	SAFEN = OFF, SAF disabled
-   845                           ;	Background Debugger
-   846                           ;	DEBUG = OFF, Background Debugger disabled
-   847  300006                     	org	3145734
-   848  300006  FF                 	db	255
+   830                           ;Config register IDLOC9 @ 0x200012
+   831                           ;	unspecified, using default values
+   832  200012                     	org	2097170
+   833  200012  0FFF               	dw	4095
+   834                           
+   835                           ;Config register IDLOC10 @ 0x200014
+   836                           ;	unspecified, using default values
+   837  200014                     	org	2097172
+   838  200014  0FFF               	dw	4095
+   839                           
+   840                           ;Config register IDLOC11 @ 0x200016
+   841                           ;	unspecified, using default values
+   842  200016                     	org	2097174
+   843  200016  0FFF               	dw	4095
+   844                           
+   845                           ;Config register IDLOC12 @ 0x200018
+   846                           ;	unspecified, using default values
+   847  200018                     	org	2097176
+   848  200018  0FFF               	dw	4095
    849                           
-   850                           ;Config register CONFIG8 @ 0x300007
-   851                           ;	Boot Block Write Protection bit
-   852                           ;	WRTB = OFF, Boot Block not Write protected
-   853                           ;	Configuration Register Write Protection bit
-   854                           ;	WRTC = OFF, Configuration registers not Write protected
-   855                           ;	Data EEPROM Write Protection bit
-   856                           ;	WRTD = OFF, Data EEPROM not Write protected
-   857                           ;	SAF Write protection bit
-   858                           ;	WRTSAF = OFF, SAF not Write Protected
-   859                           ;	Application Block write protection bit
-   860                           ;	WRTAPP = OFF, Application Block not write protected
-   861  300007                     	org	3145735
-   862  300007  FF                 	db	255
-   863                           
-   864                           ; Padding undefined space
-   865  300008                     	org	3145736
-   866  300008  FF                 	db	255
-   867                           
-   868                           ;Config register CONFIG10 @ 0x300009
-   869                           ;	PFM and Data EEPROM Code Protection bit
-   870                           ;	CP = OFF, PFM and Data EEPROM code protection disabled
-   871  300009                     	org	3145737
-   872  300009  FF                 	db	255
-   873                           tosu	equ	0x4FF
-   874                           tosh	equ	0x4FE
-   875                           tosl	equ	0x4FD
-   876                           stkptr	equ	0x4FC
-   877                           pclatu	equ	0x4FB
-   878                           pclath	equ	0x4FA
-   879                           pcl	equ	0x4F9
-   880                           tblptru	equ	0x4F8
-   881                           tblptrh	equ	0x4F7
-   882                           tblptrl	equ	0x4F6
-   883                           tablat	equ	0x4F5
-   884                           prodh	equ	0x4F4
-   885                           prodl	equ	0x4F3
-   886                           indf0	equ	0x4EF
-   887                           postinc0	equ	0x4EE
-   888                           postdec0	equ	0x4ED
-   889                           preinc0	equ	0x4EC
-   890                           plusw0	equ	0x4EB
-   891                           fsr0h	equ	0x4EA
-   892                           fsr0l	equ	0x4E9
-   893                           wreg	equ	0x4E8
-   894                           indf1	equ	0x4E7
-   895                           postinc1	equ	0x4E6
-   896                           postdec1	equ	0x4E5
-   897                           preinc1	equ	0x4E4
-   898                           plusw1	equ	0x4E3
-   899                           fsr1h	equ	0x4E2
-   900                           fsr1l	equ	0x4E1
-   901                           bsr	equ	0x4E0
-   902                           indf2	equ	0x4DF
-   903                           postinc2	equ	0x4DE
-   904                           postdec2	equ	0x4DD
-   905                           preinc2	equ	0x4DC
-   906                           plusw2	equ	0x4DB
-   907                           fsr2h	equ	0x4DA
-   908                           fsr2l	equ	0x4D9
-   909                           status	equ	0x4D8
+   850                           ;Config register IDLOC13 @ 0x20001A
+   851                           ;	unspecified, using default values
+   852  20001A                     	org	2097178
+   853  20001A  0FFF               	dw	4095
+   854                           
+   855                           ;Config register IDLOC14 @ 0x20001C
+   856                           ;	unspecified, using default values
+   857  20001C                     	org	2097180
+   858  20001C  0FFF               	dw	4095
+   859                           
+   860                           ;Config register IDLOC15 @ 0x20001E
+   861                           ;	unspecified, using default values
+   862  20001E                     	org	2097182
+   863  20001E  0FFF               	dw	4095
+   864                           
+   865                           	psect	config
+   866                           
+   867                           ;Config register CONFIG1 @ 0x300000
+   868                           ;	External Oscillator Selection
+   869                           ;	FEXTOSC = OFF, Oscillator not enabled
+   870                           ;	Reset Oscillator Selection
+   871                           ;	RSTOSC = HFINTOSC_64MHZ, HFINTOSC with HFFRQ = 64 MHz and CDIV = 1:1
+   872  300000                     	org	3145728
+   873  300000  8C                 	db	140
+   874                           
+   875                           ;Config register CONFIG2 @ 0x300001
+   876                           ;	Clock out Enable bit
+   877                           ;	CLKOUTEN = ON, CLKOUT function is enabled
+   878                           ;	PRLOCKED One-Way Set Enable bit
+   879                           ;	PR1WAY = ON, PRLOCKED bit can be cleared and set only once
+   880                           ;	Clock Switch Enable bit
+   881                           ;	CSWEN = ON, Writing to NOSC and NDIV is allowed
+   882                           ;	Fail-Safe Clock Monitor Enable bit
+   883                           ;	FCMEN = ON, Fail-Safe Clock Monitor enabled
+   884  300001                     	org	3145729
+   885  300001  FE                 	db	254
+   886                           
+   887                           ;Config register CONFIG3 @ 0x300002
+   888                           ;	MCLR Enable bit
+   889                           ;	MCLRE = EXTMCLR, If LVP = 0, MCLR pin is MCLR; If LVP = 1, RE3 pin function is MCLR
+   890                           ;	Power-up timer selection bits
+   891                           ;	PWRTS = PWRT_OFF, PWRT is disabled
+   892                           ;	Multi-vector enable bit
+   893                           ;	MVECEN = ON, Multi-vector enabled, Vector table used for interrupts
+   894                           ;	IVTLOCK bit One-way set enable bit
+   895                           ;	IVT1WAY = ON, IVTLOCKED bit can be cleared and set only once
+   896                           ;	Low Power BOR Enable bit
+   897                           ;	LPBOREN = OFF, Low-Power BOR disabled
+   898                           ;	Brown-out Reset Enable bits
+   899                           ;	BOREN = SBORDIS, Brown-out Reset enabled , SBOREN bit is ignored
+   900  300002                     	org	3145730
+   901  300002  FF                 	db	255
+   902                           
+   903                           ;Config register CONFIG4 @ 0x300003
+   904                           ;	Brown-out Reset Voltage Selection bits
+   905                           ;	BORV = VBOR_2P85, Brown-out Reset Voltage (VBOR) set to 2.8V
+   906                           ;	ZCD Disable bit
+   907                           ;	ZCD = OFF, ZCD module is disabled. ZCD can be enabled by setting the ZCDSEN bit of ZCD
+      +                          CON
+   908                           ;	PPSLOCK bit One-Way Set Enable bit
+   909                           ;	PPS1WAY = ON, PPSLOCKED bit can be cleared and set only once; PPS registers remain loc
+      +                          ked after one clear/set cycle
+   910                           ;	Stack Full/Underflow Reset Enable bit
+   911                           ;	STVREN = ON, Stack full/underflow will cause Reset
+   912                           ;	Low Voltage Programming Enable bit
+   913                           ;	LVP = ON, Low voltage programming enabled. MCLR/VPP pin function is MCLR. MCLRE config
+      +                          uration bit is ignored
+   914                           ;	Extended Instruction Set Enable bit
+   915                           ;	XINST = OFF, Extended Instruction Set and Indexed Addressing Mode disabled
+   916  300003                     	org	3145731
+   917  300003  FC                 	db	252
+   918                           
+   919                           ;Config register CONFIG5 @ 0x300004
+   920                           ;	WDT Period selection bits
+   921                           ;	WDTCPS = WDTCPS_31, Divider ratio 1:65536; software control of WDTPS
+   922                           ;	WDT operating mode
+   923                           ;	WDTE = OFF, WDT Disabled; SWDTEN is ignored
+   924  300004                     	org	3145732
+   925  300004  9F                 	db	159
+   926                           
+   927                           ;Config register CONFIG6 @ 0x300005
+   928                           ;	WDT Window Select bits
+   929                           ;	WDTCWS = WDTCWS_7, window always open (100%); software control; keyed access not requi
+      +                          red
+   930                           ;	WDT input clock selector
+   931                           ;	WDTCCS = SC, Software Control
+   932  300005                     	org	3145733
+   933  300005  FF                 	db	255
+   934                           
+   935                           ;Config register CONFIG7 @ 0x300006
+   936                           ;	Boot Block Size selection bits
+   937                           ;	BBSIZE = BBSIZE_512, Boot Block size is 512 words
+   938                           ;	Boot Block enable bit
+   939                           ;	BBEN = OFF, Boot block disabled
+   940                           ;	Storage Area Flash enable bit
+   941                           ;	SAFEN = OFF, SAF disabled
+   942                           ;	Background Debugger
+   943                           ;	DEBUG = OFF, Background Debugger disabled
+   944  300006                     	org	3145734
+   945  300006  FF                 	db	255
+   946                           
+   947                           ;Config register CONFIG8 @ 0x300007
+   948                           ;	Boot Block Write Protection bit
+   949                           ;	WRTB = OFF, Boot Block not Write protected
+   950                           ;	Configuration Register Write Protection bit
+   951                           ;	WRTC = OFF, Configuration registers not Write protected
+   952                           ;	Data EEPROM Write Protection bit
+   953                           ;	WRTD = OFF, Data EEPROM not Write protected
+   954                           ;	SAF Write protection bit
+   955                           ;	WRTSAF = OFF, SAF not Write Protected
+   956                           ;	Application Block write protection bit
+   957                           ;	WRTAPP = OFF, Application Block not write protected
+   958  300007                     	org	3145735
+   959  300007  FF                 	db	255
+   960                           
+   961                           ; Padding undefined space
+   962  300008                     	org	3145736
+   963  300008  FF                 	db	255
+   964                           
+   965                           ;Config register CONFIG10 @ 0x300009
+   966                           ;	PFM and Data EEPROM Code Protection bit
+   967                           ;	CP = OFF, PFM and Data EEPROM code protection disabled
+   968  300009                     	org	3145737
+   969  300009  FF                 	db	255
+   970                           tosu	equ	0x4FF
+   971                           tosh	equ	0x4FE
+   972                           tosl	equ	0x4FD
+   973                           stkptr	equ	0x4FC
+   974                           pclatu	equ	0x4FB
+   975                           pclath	equ	0x4FA
+   976                           pcl	equ	0x4F9
+   977                           tblptru	equ	0x4F8
+   978                           tblptrh	equ	0x4F7
+   979                           tblptrl	equ	0x4F6
+   980                           tablat	equ	0x4F5
+   981                           prodh	equ	0x4F4
+   982                           prodl	equ	0x4F3
+   983                           indf0	equ	0x4EF
+   984                           postinc0	equ	0x4EE
+   985                           postdec0	equ	0x4ED
+   986                           preinc0	equ	0x4EC
+   987                           plusw0	equ	0x4EB
+   988                           fsr0h	equ	0x4EA
+   989                           fsr0l	equ	0x4E9
+   990                           wreg	equ	0x4E8
+   991                           indf1	equ	0x4E7
+   992                           postinc1	equ	0x4E6
+   993                           postdec1	equ	0x4E5
+   994                           preinc1	equ	0x4E4
+   995                           plusw1	equ	0x4E3
+   996                           fsr1h	equ	0x4E2
+   997                           fsr1l	equ	0x4E1
+   998                           bsr	equ	0x4E0
+   999                           indf2	equ	0x4DF
+  1000                           postinc2	equ	0x4DE
+  1001                           postdec2	equ	0x4DD
+  1002                           preinc2	equ	0x4DC
+  1003                           plusw2	equ	0x4DB
+  1004                           fsr2h	equ	0x4DA
+  1005                           fsr2l	equ	0x4D9
+  1006                           status	equ	0x4D8
 
 Data Sizes:
     Strings     0
     Constant    0
-    Data        6
-    BSS         18
+    Data        256
+    BSS         14
     Persistent  0
     Stack       0
 
 Auto Spaces:
     Space          Size  Autos    Used
-    COMRAM           95      6      30
+    COMRAM           95      4      18
     BANK5           160      0       0
-    BANK6           256      0       0
+    BANK6           256      0     256
     BANK7           256      0       0
     BANK8           256      0       0
     BANK9           256      0       0
@@ -1060,7 +1135,7 @@ Pointer List with Targets:
 
 Critical Paths under _main in COMRAM
 
-    _main->_UserAppRun
+    _main->_TimeXus
 
 Critical Paths under _main in BANK5
 
@@ -1199,24 +1274,17 @@ Call Graph Tables:
  ---------------------------------------------------------------------------------
  (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
  ---------------------------------------------------------------------------------
- (0) _main                                                 0     0      0     181
+ (0) _main                                                 0     0      0     166
                          _ClockSetup
                           _GpioSetup
                        _SysTickSetup
-                        _SystemSleep
                             _TimeXus
                   _UserAppInitialize
-                         _UserAppRun
- ---------------------------------------------------------------------------------
- (1) _UserAppRun                                           6     6      0      15
-                                              0 COMRAM     6     6      0
  ---------------------------------------------------------------------------------
  (1) _UserAppInitialize                                    0     0      0       0
  ---------------------------------------------------------------------------------
  (1) _TimeXus                                              4     2      2     166
                                               0 COMRAM     4     2      2
- ---------------------------------------------------------------------------------
- (1) _SystemSleep                                          0     0      0       0
  ---------------------------------------------------------------------------------
  (1) _SysTickSetup                                         0     0      0       0
  ---------------------------------------------------------------------------------
@@ -1233,10 +1301,8 @@ Call Graph Tables:
    _ClockSetup
    _GpioSetup
    _SysTickSetup
-   _SystemSleep
    _TimeXus
    _UserAppInitialize
-   _UserAppRun
 
  Address spaces:
 Name               Size   Autos  Total    Cost      Usage
@@ -1305,11 +1371,11 @@ BANK8              100      0       0      11        0.0%
 BITBANK7           100      0       0       8        0.0%
 BANK7              100      0       0       9        0.0%
 BITBANK6           100      0       0       6        0.0%
-BANK6              100      0       0       7        0.0%
+BANK6              100      0     100       7      100.0%
 BITBANK5            A0      0       0       4        0.0%
 BANK5               A0      0       0       5        0.0%
 BITCOMRAM           5F      0       0       0        0.0%
-COMRAM              5F      6      1E       1       31.6%
+COMRAM              5F      4      12       1       18.9%
 BITSFR_5             0      0       0     200        0.0%
 SFR_5                0      0       0     200        0.0%
 BITSFR_4             0      0       0     200        0.0%
@@ -1324,60 +1390,48 @@ BITSFR               0      0       0     200        0.0%
 SFR                  0      0       0     200        0.0%
 STACK                0      0       0       2        0.0%
 NULL                 0      0       0       0        0.0%
-ABS                  0      0      1E      69        0.0%
-DATA                 0      0      1E       3        0.0%
+ABS                  0      0     112      69        0.0%
+DATA                 0      0     112       3        0.0%
 CODE                 0      0       0       0        0.0%
 
 
 Microchip Technology PIC18 Macro Assembler V2.31 build 20201012212115 
-Symbol Table                                                                                   Mon Mar 29 11:07:49 2021
+Symbol Table                                                                                   Wed Mar 31 15:31:39 2021
 
-     __size_of_SysTickSetup 0022                          l13 FEAA                          l22 FEAC  
-                        l16 FEC2                          l19 FEF4                          l52 FF74  
-                        l76 FED2                          l92 FFFA                          l79 FF18  
-                        u11 FF96                          u20 FFB4                          u21 FFB0  
-                        u30 FFEE                          u31 FFEA                          u50 FF82  
-                        u51 FF7E                         l830 FF0A                         l824 FED4  
-                       l832 FF0E                         l840 FF4E                         l834 FF14  
-                       l826 FEF6                         l850 FF62                         l842 FF52  
-                       l836 FF16                         l828 FEFE                         l772 FEC4  
-                       l780 FFC0                         l852 FF64                         l844 FF56  
-                       l790 FFF6                         l782 FFD0                         l774 FF8C  
-                       l854 FF68                         l846 FF5A                         l838 FF4C  
-                       l768 FEB4                         l784 FFD6                         l776 FF9E  
-                       l856 FF82                         l848 FF5E                         l778 FFB4  
-                       l786 FFDA                         l788 FFEE                         wreg 0004E8  
-                      _LATA 0004BE                        _PIR3 0004B1                        _main FF4C  
-              _SysTickSetup FED4                        indf2 0004DF                        fsr1l 0004E1  
-                      fsr2l 0004D9                        start FFFC              TimeXus@u16temp 051B  
-      __size_of_SystemSleep 0002                ___param_bank 000000                  _ClockSetup FEAA  
-           __end_of_TimeXus FF1A                       ?_main 0519                       _TMR0H 000319  
+     __size_of_SysTickSetup 0022                          l21 FE68                          l15 FE1A  
+                        l18 FE30                          l50 FEE2                          l81 FE8C  
+                        l78 FE46                          u20 FEF0                          u21 FEEC  
+                       l800 FE6A                         l810 FE8A                         l802 FE72  
+                       l804 FE7E                         l820 FED2                         l812 FEC4  
+                       l806 FE82                         l822 FED6                         l814 FEC6  
+                       l808 FE88                         l824 FEF0                         l816 FECA  
+                       l762 FE1C                         l818 FECE                         l766 FE32  
+                       l798 FE48                         wreg 0004E8                        _LATA 0004BE  
+                      _PIR3 0004B1                        _main FEC4                _SysTickSetup FE48  
+                      fsr1h 0004E2                        fsr1l 0004E1                        start FFFC  
+            TimeXus@u16temp 0511                ___param_bank 000000                  _ClockSetup FE1A  
+           __end_of_TimeXus FE8E                       ?_main 050F                       _TMR0H 000319  
                      _TMR0L 000318                       _TRISA 0004C6                       tablat 0004F5  
-                     plusw1 0004E3                       plusw2 0004DB                       status 0004D8  
-           __initialization FF1A                __end_of_main FF8C                      ??_main 051F  
+           __initialization FE8E                __end_of_main FEFC                      ??_main 0513  
              __activetblptr 000000                      _ANSELA 000400                      _T0CON0 00031A  
-                    _T0CON1 00031B          __size_of_GpioSetup 0010                   ??_TimeXus 051B  
-               ?_ClockSetup 0519                      clear_0 FF40                __pdataCOMRAM 0513  
-                    tblptrh 0004F7                      tblptrl 0004F6                      tblptru 0004F8  
-                _UserAppRun FF8C                  __accesstop 0560     __end_of__initialization FF46  
-             ___rparam_used 000001            _G_u8UserAppFlags 0512              __pcstackCOMRAM 0519  
-         __end_of_GpioSetup FEC4         __size_of_ClockSetup 0002                 ?_UserAppRun 0519  
-             ??_SystemSleep 0519                     __Hparam 0000                     __Lparam 0000  
-                   _TimeXus FEF6                     __pcinit FF1A                     __ramtop 2600  
-                   __ptext0 FF4C                     __ptext1 FF8C                     __ptext2 FEC4  
-                   __ptext3 FEF6                     __ptext4 FEAC                     __ptext5 FED4  
-                   __ptext6 FEB4                     __ptext7 FEAA        end_of_initialization FF46  
-          _G_u32SystemFlags 0501                     postdec1 0004E5                     postinc0 0004EE  
-       __end_of_SystemSleep FEAE                ??_ClockSetup 0519         __size_of_UserAppRun 0070  
-         TimeXus@u16TimeXus 0519        UserAppRun@u16Counter 050F          __end_of_ClockSetup FEAC  
-             __pidataCOMRAM FEAE                   _GpioSetup FEB4         start_initialization FF1A  
-             ?_SysTickSetup 0519                 _SystemSleep FEAC                  ?_GpioSetup 0519  
-               __pbssCOMRAM 0501           _UserAppInitialize FEC4                ??_UserAppRun 0519  
-        ?_UserAppInitialize 0519              ??_SysTickSetup 0519         ??_UserAppInitialize 0519  
-                  ?_TimeXus 0519          __end_of_UserAppRun FFFC   __end_of_UserAppInitialize FED4  
-                  _PIR3bits 0004B1                 ??_GpioSetup 0519                   copy_data0 FF2E  
-                  __Hrparam 0000                    __Lrparam 0000            __size_of_TimeXus 0024  
-          UserAppRun@F15926 0513        __end_of_SysTickSetup FEF6     UserAppRun@pattern_index 050D  
-                _T0CON0bits 00031A  __size_of_UserAppInitialize 0010         UserAppRun@u8pattern 0519  
-          UserAppRun@u8Temp 0511               __size_of_main 0040                ?_SystemSleep 0519  
-        _G_u32SystemTime1ms 0509           _G_u32SystemTime1s 0505  
+                    _T0CON1 00031B          __size_of_GpioSetup 0016                   ??_TimeXus 0511  
+               ?_ClockSetup 050F                      clear_0 FEB8                      tblptrh 0004F7  
+                    tblptrl 0004F6                      tblptru 0004F8                  __accesstop 0560  
+   __end_of__initialization FEBE               ___rparam_used 000001            _G_u8UserAppFlags 050E  
+            __pcstackCOMRAM 050F                __pidataBANK6 FEFC           __end_of_GpioSetup FE32  
+       __size_of_ClockSetup 0002                     _DAC1CON 00007F                     __Hparam 0000  
+                   __Lparam 0000                     _TimeXus FE6A                     __pcinit FE8E  
+                   __ramtop 2600                     __ptext0 FEC4                     __ptext1 FE32  
+                   __ptext2 FE6A                     __ptext3 FE48                     __ptext4 FE1C  
+                   __ptext5 FE1A        end_of_initialization FEBE            _G_u32SystemFlags 0501  
+                   postdec1 0004E5                     postinc0 0004EE                ??_ClockSetup 050F  
+         TimeXus@u16TimeXus 050F          __end_of_ClockSetup FE1C                   _GpioSetup FE1C  
+       start_initialization FE8E               ?_SysTickSetup 050F                 __pdataBANK6 0600  
+                ?_GpioSetup 050F                 __pbssCOMRAM 0501           _UserAppInitialize FE32  
+        ?_UserAppInitialize 050F              ??_SysTickSetup 050F         ??_UserAppInitialize 050F  
+                  ?_TimeXus 050F                    _DAC1DATL 00007D   __end_of_UserAppInitialize FE48  
+         UserAppRun@u8Index 050D                    _PIR3bits 0004B1                 ??_GpioSetup 050F  
+                 copy_data0 FEA2                    __Hrparam 0000                    __Lrparam 0000  
+          __size_of_TimeXus 0024        __end_of_SysTickSetup FE6A                  _T0CON0bits 00031A  
+__size_of_UserAppInitialize 0016               __size_of_main 0038          _G_u32SystemTime1ms 0509  
+         _G_u32SystemTime1s 0505         _UserApp_u8sineTable 0600  

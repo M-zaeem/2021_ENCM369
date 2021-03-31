@@ -52,19 +52,28 @@ void main(void)
   while(1)
   {
     /* Drivers */
-       
+      
+    /* Generating sawtooth wave with minimum possible delay*/ 
+#if 0
+     TimeXus(1); 
+     while(0x80 != (PIR3 & 0x80) );
+     DAC1DATL++;
+#endif
+     
+#if 1      
     /* Applications */
     UserAppRun();
     
     
-    
+
     /* System sleep */
     HEARTBEAT_OFF();
     SystemSleep();
-    TimeXus(1000); 
+
+    TimeXus(11); 
     while(0x80 != (PIR3 & 0x80) );
     HEARTBEAT_ON();
-    
+#endif 
   } /* end while(1) main super loop */
   
 } /* end main() */
